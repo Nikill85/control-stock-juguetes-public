@@ -1,0 +1,33 @@
+
+<div>
+    <table id="customers">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th style="width: 3rem;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tipoProd of tipoProductos">
+                <td>{{tipoProd.Id}}</td>
+                <td>{{tipoProd.Descripcion}}</td>
+                <td style="text-align: center;">
+                    <i class="pi pi-pencil icono_edit" (click)="editarTipo(tipoProd)"></i>
+                    <i class="pi pi-trash icono_trash" (click)="eliminarTipo(tipoProd)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-7">
+        <label for="tipoProd">Tipo de producto</label>
+        <input type="text" id="tipoProd" [(ngModel)]="editarOnuevoTipoProducto.Descripcion">    
+    </div>
+    <div class="col-5" style="display: flex; flex-direction: row; justify-content: space-between;">
+        <button *ngIf="!estoyEditando" pButton type="button" (click)="agregarTipo()" label="Nuevo" class="p-button-primary"></button>
+        <button *ngIf="estoyEditando" pButton type="button" (click)="salvarEdicion()" label="Guardar" class="p-button-primary"></button>
+        <button *ngIf="estoyEditando" pButton type="button" (click)="cancelarEdicion()" label="Cancelar" class="p-button-danger"></button>
+    </div>
+</div>
