@@ -1,0 +1,35 @@
+<div class="container_fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="menu">
+          <div class="logo">
+            
+            <i class="pi pi-star-fill" style="color: rgb(216, 16, 149)"></i>
+          </div>
+          <div class="items">
+            <div class="item">
+              <span class="btn" (click)="goTo('proveedores')">Proveedores</span>
+            </div>
+            <div class="item">
+              <span class="btn" (click)="goTo('productos')">Productos</span>
+            </div>
+            <div class="item">
+              <span class="btn" (click)="goTo('compras')">Compras</span>
+            </div>
+            <div class="item">
+              <span class="btn" (click)="goTo('ventas')">Ventas</span>
+            </div>
+            <div class="item">
+              <span class="btn" (click)="goTo('stock')">Stock</span>
+            </div>
+            <div class="item">
+              <span class="btn" (click)="goTo('configuracion')">Tipo de Producto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>

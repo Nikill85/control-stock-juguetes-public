@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap">
+<div class="fullcontent">
+    <div class="headings">
+        <h1>Ludex</h1>
+        <h2>
+            <span class="pi pi-heart"></span> Donde la diversión encuentra su orden <span class="pi pi-heart"></span>
+        </h2>
+    </div>
+    
+    <div class="formbox">
+        <h3>Iniciar sesión.</h3>
+       <form>
+    <label for="">
+        Usuario
+    </label>
+   
+    <div class="input-icon">
+        <i class="pi pi-user" *ngIf="!usuario"></i>
+        <input type="text" placeholder="       Ingrese usuario" class="asd" [(ngModel)]="usuario" name="usuario" />
+    </div>
+
+    <label for="">
+        Contraseña
+    </label>
+    <div class="input-icon">
+        <i class="pi pi-lock"  *ngIf="!password"></i>
+        <input type="password" placeholder="       Ingrese contraseña" class="asd" [(ngModel)]="password" name="password" />
+    </div>
+
+    <div style="padding-left: 160px;">
+        <button (click)="verificarIngreso()" class="cssbuttons-io-button"> Ingresar
+            <div class="icon">
+                <!-- Aquí puedes agregar un ícono de PrimeNG para el botón si lo deseas -->
+            </div>
+        </button>
+    </div>
+</form>
+    </div>
+</div>

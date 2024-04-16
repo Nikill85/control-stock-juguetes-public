@@ -16,7 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TablaComponent } from './componentes/tabla/tabla.component';
 import { TableModule } from 'primeng/table';
 import { TipoProductoComponent } from './componentes/tipo-producto/tipo-producto.component';
-import { ClientesComponent } from './paginas/clientes/clientes.component';
+
 import { ProductoComponent } from './paginas/producto/producto.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfiguracionComponent } from './paginas/configuracion/configuracion.component';
@@ -25,6 +25,9 @@ import { StockComponent } from './paginas/stock/stock.component';
 import { NoStockPipe } from './pipes/no-stock.pipe';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { VentasComponent } from './paginas/ventas/ventas.component';
+import { ProveedoresComponent } from './paginas/proveedores/proveedores.component';
+import { LoguinComponent } from './componentes/loguin/loguin.component';
+import { HomeComponent } from './componentes/home/home.component';
 @NgModule(
   {
     //Componentes de la aplicacion, AppComponent/ErrorComponent/HomeComponent/etc
@@ -33,13 +36,16 @@ import { VentasComponent } from './paginas/ventas/ventas.component';
       Error404Component,
       TablaComponent,
       TipoProductoComponent,
-      ClientesComponent,
+
       ProductoComponent,
       ConfiguracionComponent,
       ComprasComponent,
       StockComponent,
       NoStockPipe,
       VentasComponent,
+      ProveedoresComponent,
+      LoguinComponent,
+      HomeComponent,
     ],
     imports: [
       BrowserModule,

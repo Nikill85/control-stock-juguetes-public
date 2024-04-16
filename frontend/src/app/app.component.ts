@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
+  condition : boolean = true;
+
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  
 
-  }
-
-  goTo(where: string): void {
-    this.router.navigate([where]);
+  ngOnInit() : void{
+    this.router.navigate(['/']);
   }
 }
