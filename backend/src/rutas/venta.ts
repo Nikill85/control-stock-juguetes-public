@@ -1,68 +1,65 @@
 import express, { Request, Response } from 'express';
-import sql, { ConnectionPool } from 'mssql';
+import mysql from 'mysql2/promise';
 
-const configuracionBD = {
-    user: 'sa',
-    password: 'nilda123_123',
-    server: 'localhost\\SQLEXPRESS',
-    database: 'control_stock_juguetes',
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
-};
+var conexion = mysql.createPool({
+    host:'localhost',
+    port:3306,
+    user: 'root',
+    password:'yduz2uro',
+    database:'proyecto_final'
+});
+
 
 const router = express.Router();
 
+
 router.get('/', async (req: Request, res: Response) => {
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`
-        select Ventas.Fecha,
-                Ventas.Id as VentaID,
-                Ventas.ClienteID as ClienteID,
-                Clientes.nombreApellido,
-                Ventas.ProductoID,
-                Productos.Descripcion,
-                Ventas.Cantidad,
-                Ventas.Total
-        from Ventas
-        inner join Clientes on clientes.id = Ventas.ClienteID
-        inner join Productos on Productos.Id = Ventas.ProductoID`);
-        res.json(result.recordset);
-    } catch (e) {
-        res.status(500).send({ error: e });
+        const [rows, fields] = await conexion.execute('SELECT * FROM proyecto_final.ventas');
+        res.send(rows);
+    } catch (error) {
+        console.error('Error al obtener las ventas:', error);
+        res.status(500).send({ error: 'Error al obtener las ventas' });
     }
 });
 
 router.post('/', async (req: Request, res: Response) => {
+    const {fecha_venta,cantidad,total_venta } = req.body;
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        //const { ClienteID, ProductoID, Cantidad, Total } = req.body;
-        var ClienteID = req.body.ClienteID;
-        var ProductoID = req.body.ProductoID;
-        var Cantidad = req.body.Cantidad;
-        var Total = req.body.Total;
-        const result = await pool.request()
-            .input('ClienteID', sql.Int, ClienteID)
-            .input('ProductoID', sql.Int, ProductoID)
-            .input('Cantidad', sql.Int, Cantidad)
-            .input('Total', sql.Int, Total)
-            .input('Fecha', sql.Date, new Date())
-            .query(`INSERT INTO Ventas (ClienteID, ProductoID,Cantidad,Total,Fecha) 
-                                VALUES (@ClienteID, @ProductoID, @Cantidad, @Total, @Fecha)`);
-        res.send(result);
-    } catch (e) {
-        res.status(500).send({ error: e });
+        await conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta,cantidad,total_venta) VALUES (?,?,?)', [fecha_venta,cantidad,total_venta]);
+        res.status(201).send({ message: 'Venta creada correctamente' });
+    } catch (error) {
+        console.error('Error al crear la venta:', error);
+        res.status(500).send({ error: 'Error al crear la venta' });
+    }
+
+   
+});
+
+router.put('/', async (req: Request, res: Response) => {
+    const { id, fecha_venta,cantidad,total_venta } = req.body; // Acceder al id desde el cuerpo de la solicitud
+    try {
+        await conexion.execute('UPDATE proyecto_final.ventas SET fecha_venta = ?, cantidad = ?, total_venta = ? WHERE id_ventas = ?', [fecha_venta,cantidad,total_venta,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
+        res.send({ message: 'Descripcion actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar la venta:', error);
+        res.status(500).send({ error: 'Error al actualizar la venta' });
     }
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
 
+router.delete('/', async (req: Request, res: Response) => {
+    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+    try {
+        await conexion.execute('DELETE FROM proyecto_final.ventas WHERE id_ventas = ?', [id]);
+        res.send({ message: 'Venta eliminada correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar la venta:', error);
+        res.status(500).send({ error: 'Error al eliminar la venta' });
+    }
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
 
-});
+   
 
 export default router;

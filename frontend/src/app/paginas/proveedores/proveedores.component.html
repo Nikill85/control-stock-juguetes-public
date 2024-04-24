@@ -1,1 +1,79 @@
-<p>proveedores works!</p>
+<app-home></app-home>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h4>Nuevo Proveedor</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="input_container">
+                <label for="" class="label_input">Nombre</label>
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.descripcion" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input_container">
+                <label for="" class="label_input">Email</label>
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.email" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input_container">
+                <label for="" class="label_input">Provincia</label>
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.direccion" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input_container">
+                <label for="" class="label_input">Telefono</label>
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.telefono" />
+            </div>
+        </div>
+     
+        <div class="col-4">
+            <div *ngIf="!esEdit">
+                <button pButton (click)="crearProveedor()" label="Crear" class="p-button-success btn_new"></button>
+            </div>
+            <div *ngIf="esEdit" style="display:flex; flex-direction: row; justify-content: space-between;">
+                <button pButton (click)="actualizarProveedor()" label="Guardar" class="p-button-success btn_new"></button>
+                <button pButton (click)="cancelarUpdate()" label="Cancelar" class="p-button-danger"></button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            <h4>Proveedores</h4>
+        </div>
+        <div class="col-12">
+            <div>
+                <table id="customers">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th style="width: 3rem;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let proveedor of proveedores">
+                            <td>{{proveedor.descripcion}}</td>
+                            <td>{{proveedor.email}}</td>
+                            <td>{{proveedor.direccion}}</td>
+                            <td>{{proveedor.telefono}}</td>
+                           
+                            <td style="text-align: center;">
+                                <i class="pi pi-pencil icono_edit" (click)="editarProveedor(proveedor)"></i>
+                                <i class="pi pi-trash icono_trash" (click)="eliminarProveedor(proveedor)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>

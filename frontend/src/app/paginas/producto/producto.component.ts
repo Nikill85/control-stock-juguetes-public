@@ -20,12 +20,12 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProductos();
+    this.getProducto();
     this.getTiposDeProducto();
   }
 
-  getProductos() {
-    this.httpClient.get('http://localhost:3000/productos').subscribe((productos: Producto[]) => {
+  getProducto() {
+    this.httpClient.get('http://localhost:3000/producto').subscribe((productos: Producto[]) => {
       console.log(productos);
       this.productos = productos;
     });
@@ -54,12 +54,12 @@ export class ProductoComponent implements OnInit {
 
 
   crearProducto() {
-    this.httpClient.post('http://localhost:3000/productos', this.producto).subscribe(data => {
+    this.httpClient.post('http://localhost:3000/producto', this.producto).subscribe(data => {
       console.log("insert prod", data);
     });
   }
   actualizarProducto() {
-    this.httpClient.put(`http://localhost:3000/productos/${this.producto.Id}`, this.producto).subscribe(data => {
+    this.httpClient.put(`http://localhost:3000/producto/${this.producto.Id}`, this.producto).subscribe(data => {
       console.log("insert prod", data);
     });
   }

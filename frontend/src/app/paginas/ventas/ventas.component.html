@@ -1,1 +1,60 @@
-<p>ventas works!</p>
+<app-home></app-home>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Nueva Venta</h4>
+        </div>
+      
+        <div class="col-3">
+            <div class="input_container">
+                <label for="" class="label_input">Producto</label>
+                <select class="input_new" [(ngModel)]="productoSelected" (change)="calcularTotal()">
+                    <option *ngFor="let p of productos" [ngValue]="p">{{p.Descripcion}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="input_container">
+                <label for=""class="label_input">Cantidad</label>
+                <input type="number" (blur)="metodoEjemplo($event)" class="input_new"[(ngModel)]="ventaRequest.Cantidad">
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="input_container">
+                <label class="label_input">Total</label>
+                <input type="number" class="input_new" *ngIf="productoSelected && ventaRequest.Cantidad"  value="{{ventaRequest.Cantidad * productoSelected.Precio}}" disabled>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn_new " (click)="nuevaVenta()">Nueva Venta</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>Ventas</h4>
+        </div>
+        <div>
+            <table id="customers">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let v of ventas">
+                        <td>{{v.Fecha | date:'dd/MM/yy'}}</td>
+                        <td>{{v.nombreApellido}}</td>
+                        <td>{{v.Descripcion}}</td>
+                        <td>{{v.Cantidad}}</td>
+                        <td>{{v.Total | currency}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

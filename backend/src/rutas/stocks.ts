@@ -1,68 +1,65 @@
 import express, { Request, Response } from 'express';
-import sql, { ConnectionPool } from 'mssql';
+import mysql from 'mysql2/promise';
 
-const configuracionBD = {
-    user: 'sa',
-    password: 'nilda123_123',
-    server: 'localhost\\SQLEXPRESS',
-    database: 'control_stock_juguetes',
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
-};
+var conexion = mysql.createPool({
+    host:'localhost',
+    port:3306,
+    user: 'root',
+    password:'yduz2uro',
+    database:'proyecto_final'
+});
+
 
 const router = express.Router();
 
+
 router.get('/', async (req: Request, res: Response) => {
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`SELECT * FROM Stocks`);
-        res.json(result.recordset);
-    } catch (e) {
-        res.send({ error: e })
+        const [rows, fields] = await conexion.execute('SELECT * FROM proyecto_final.stock');
+        res.send(rows);
+    } catch (error) {
+        console.error('Error al obtener los stocks:', error);
+        res.status(500).send({ error: 'Error al obtener los stocks' });
     }
 });
 
 router.post('/', async (req: Request, res: Response) => {
+    const { cantidad } = req.body;
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { productoID, cantidad } = req.body;
-        const result = await pool.request()
-            .input('productoID', sql.Int, productoID)
-            .input('cantidad', sql.Int, cantidad)
-            .query(`INSERT INTO Stocks (productoID, cantidad) VALUES (@productoID,@cantidad)`);
-        res.send(result);
-    } catch (e) {
-        res.send({ error: e });
+        await conexion.execute('INSERT INTO proyecto_final.stock (cantidad) VALUES (?)', [cantidad]);
+        res.status(201).send({ message: 'Producto creado correctamente' });
+    } catch (error) {
+        console.error('Error al crear el stock:', error);
+        res.status(500).send({ error: 'Error al crear el stock' });
+    }
+
+   
+});
+
+router.put('/', async (req: Request, res: Response) => {
+    const { id, cantidad } = req.body; // Acceder al id desde el cuerpo de la solicitud
+    try {
+        await conexion.execute('UPDATE proyecto_final.stock SET cantidad = ? WHERE id_stock = ?', [cantidad,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
+        res.send({ message: 'Stock actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar el stock:', error);
+        res.status(500).send({ error: 'Error al actualizar el stock' });
     }
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
+
+router.delete('/', async (req: Request, res: Response) => {
+    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { productoID, cantidad } = req.body;
-        const id = req.params.id;
-        const result = await pool.request()
-            .input('id', sql.Int, id)
-            .input('productoID', sql.Int, productoID)
-            .input('cantidad', sql.Int, cantidad)
-            .query(`UPDATE Stocks SET productoID=@productoID, cantidad=@cantidad WHERE stockID=@id`);
-        res.send(result);
-    } catch (e) {
-        res.send({ error: e });
+        await conexion.execute('DELETE FROM proyecto_final.stock WHERE id_stock = ?', [id]);
+        res.send({ message: 'Stock eliminado correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar el stock:', error);
+        res.status(500).send({ error: 'Error al eliminar el stock' });
     }
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
-    try {
-        let id = req.params.id;
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`DELETE Stocks WHERE stockID=${id}`);
-        res.json(result);
-    } catch (e) {
-        res.send({ error: e })
-    }
-});
+
+   
 
 export default router;

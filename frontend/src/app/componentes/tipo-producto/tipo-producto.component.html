@@ -1,4 +1,26 @@
-
+<app-home></app-home>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <h4>Tipos de productos</h4>
+          
+        </div>
+        <div class="row">
+            <div class="col-7">
+                <label for="" class="label_input">Tipo de producto </label> <br>
+                <input type="text" class="input_new" [(ngModel)]="editarOnuevoTipoProducto.Descripcion">    
+            </div>
+            <div class="col-5" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <button *ngIf="!estoyEditando" pButton type="button" (click)="agregarTipo()" label="Nuevo"  class="p-button-success btn_new"></button>
+                <button *ngIf="estoyEditando" pButton type="button" (click)="salvarEdicion()" label="Guardar"  class="p-button-success btn_new"></button>
+                <button *ngIf="estoyEditando" pButton type="button" (click)="cancelarEdicion()" label="Cancelar" class="p-button-danger"></button>
+            </div>
+        </div>
+        <!-- <div class="col-6">
+            <h3>Usuarios</h3>
+        </div> -->
+    </div>
+</div>
 <div>
     <table id="customers">
         <thead>
@@ -20,14 +42,4 @@
         </tbody>
     </table>
 </div>
-<div class="row">
-    <div class="col-7">
-        <label for="tipoProd">Tipo de producto</label>
-        <input type="text" id="tipoProd" [(ngModel)]="editarOnuevoTipoProducto.Descripcion">    
-    </div>
-    <div class="col-5" style="display: flex; flex-direction: row; justify-content: space-between;">
-        <button *ngIf="!estoyEditando" pButton type="button" (click)="agregarTipo()" label="Nuevo" class="p-button-primary"></button>
-        <button *ngIf="estoyEditando" pButton type="button" (click)="salvarEdicion()" label="Guardar" class="p-button-primary"></button>
-        <button *ngIf="estoyEditando" pButton type="button" (click)="cancelarEdicion()" label="Cancelar" class="p-button-danger"></button>
-    </div>
-</div>
+

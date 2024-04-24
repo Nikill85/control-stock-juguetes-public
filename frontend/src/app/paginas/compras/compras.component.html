@@ -1,1 +1,87 @@
-<p>compras works!</p>
+<app-home></app-home>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h4>Nueva Compra</h4>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+        <div class="col-3">
+            <label for=""  class="label_input">Nuevo Producto</label>
+            <input type="checkbox" style="margin-left: 5px;" [(ngModel)]="existeProducto">
+            <!-- <p-tosqggleButton [(ngModel)]="existeProducto" onLabel="Si" offLabel="No"></p-toggleButton> -->
+        </div>
+    </div>
+    <div class="row" *ngIf="existeProducto">
+        <div class="col-2 col-md-4 col-xl-6">
+            <div class="input_container">
+                <label for=""  class="label_input">Producto</label>
+                <select class="input_new" [(ngModel)]="productoSelected" (change)="selectProduct()">
+                    <option *ngFor="let p of productos" ngValue="{{p}}" >{{p.Descripcion}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2 col-md-4 col-xl-6">
+            <div class="input_container">
+                <label for=""  class="label_input">Descripcion</label>
+                <input type="text" class="input_new"[(ngModel)]="compraReq.descripcion">
+            </div>
+        </div>
+        <div class="col-2 col-md-4 col-xl-6">
+            <div class="input_container">
+                <label for=""  class="label_input">Precio Unitario</label>
+                <input type="text" class="input_new" [(ngModel)]="compraReq.precioU">
+            </div>
+        </div>
+        <div class="col-2 col-md-4 col-xl-6">
+            <div class="input_container">
+                <label for=""  class="label_input">Cantidad</label>
+                <input type="text" class="input_new" [(ngModel)]="compraReq.cantidad">
+            </div>
+        </div>
+        <div class="col-2 col-md-4 col-xl-6">
+            <div class="input_container">
+                <label for=""  class="label_input">Tipo</label>
+                <select class="input_new" [(ngModel)]="compraReq.tipoProducto">
+                    <option *ngFor="let tp of tipoProductos" ngValue="{{tp.Id}}">{{tp.Descripcion}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h4>Compras</h4>
+        </div>
+        <div>
+            <table id="customers">
+                <thead>
+                    <tr>
+                        <th>Fact.</th>
+                        <th>Fecha</th>
+                        <th>Producto</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th style="width: 3rem;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of compras">
+                        <td>{{c.Id}}</td>
+                        <td>{{c.FechaCompra | date: 'dd/MM/yy'}}</td>
+                        <td>{{c.Descripcion}}</td>
+                        <td>{{c.TipoProducto}}</td>
+                        <td>{{c.PrecioU | currency}}</td>
+                        <td>{{c.Cantidad}}</td>
+                        <td>{{c.Total | currency}}</td>
+                        <td style="text-align: center;">
+                            <i class="pi pi-pencil icono_edit" (click)="editarCompra(c)"></i>
+                            <i class="pi pi-trash icono_trash" (click)="eliminarCompra(c)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

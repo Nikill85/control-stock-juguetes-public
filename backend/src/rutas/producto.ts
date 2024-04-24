@@ -1,83 +1,65 @@
 import express, { Request, Response } from 'express';
-import sql, { ConnectionPool } from 'mssql';
+import mysql from 'mysql2/promise';
 
-const configuracionBD = {
-    user: 'sa',
-    password: 'nilda123_123',
-    server: 'localhost\\SQLEXPRESS',
-    database: 'control_stock_juguetes',
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
-};
+var conexion = mysql.createPool({
+    host:'localhost',
+    port:3306,
+    user: 'root',
+    password:'yduz2uro',
+    database:'proyecto_final'
+});
+
 
 const router = express.Router();
 
+
 router.get('/', async (req: Request, res: Response) => {
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        var query = `SELECT 
-                        p.Id, 
-                        p.Descripcion, 
-                        p.Precio, 
-                        p.TipoProducto as TipoProductoID, 
-                        tp.descripcion as TipoProducto, 
-                        s.Cantidad
-                    FROM 
-                        Productos p
-                    LEFT JOIN 
-                        Stocks s ON p.Id = s.ProductoID
-                    INNER JOIN 
-                        TipoProducto tp ON p.TipoProducto = tp.Id`;
-        const result = await pool.request().query(query);
-        res.json(result.recordset);
-    } catch (e) {
-        res.send({ error: e })
+        const [rows, fields] = await conexion.execute('SELECT * FROM proyecto_final.productos');
+        res.send(rows);
+    } catch (error) {
+        console.error('Error al obtener los productos:', error);
+        res.status(500).send({ error: 'Error al obtener los productos' });
     }
 });
 
 router.post('/', async (req: Request, res: Response) => {
+    const { descripcion, precio } = req.body;
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { Descripcion, Precio, TipoProductoID } = req.body;
-        const result = await pool.request()
-            .input('descripcion', sql.VarChar, Descripcion)
-            .input('precio', sql.Int, Precio)
-            .input('tipoProducto', sql.Int, TipoProductoID)
-            .query(`INSERT INTO Productos (descripcion, precio, tipoProducto) VALUES (@descripcion,@precio,@tipoProducto) SELECT SCOPE_IDENTITY() AS NuevoID`);
-        res.json(result.recordset[0]);
-    } catch (e) {
-        res.send({ error: e });
+        await conexion.execute('INSERT INTO proyecto_final.productos (descripcion, precio) VALUES (?, ?)', [descripcion, precio]);
+        res.status(201).send({ message: 'Producto creado correctamente' });
+    } catch (error) {
+        console.error('Error al crear el producto:', error);
+        res.status(500).send({ error: 'Error al crear el producto' });
+    }
+
+   
+});
+
+router.put('/', async (req: Request, res: Response) => {
+    const { id, descripcion, precio } = req.body; // Acceder al id desde el cuerpo de la solicitud
+    try {
+        await conexion.execute('UPDATE proyecto_final.productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
+        res.send({ message: 'Producto actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send({ error: 'Error al actualizar el producto' });
     }
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
+
+router.delete('/', async (req: Request, res: Response) => {
+    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { Descripcion, Precio, TipoProductoID } = req.body;
-        const id = req.params.id;
-        const result = await pool.request()
-            .input('id', sql.Int, id)
-            .input('descripcion', sql.VarChar, Descripcion)
-            .input('precio', sql.Int, Precio)
-            .input('tipoProducto', sql.Int, TipoProductoID)
-            .query(`UPDATE Productos SET descripcion=@descripcion, precio=@precio, tipoProducto=@tipoProducto WHERE id=@id`);
-        res.send(result);
-    } catch (e) {
-        res.status(500).send({ error: e });
+        await conexion.execute('DELETE FROM proyecto_final.productos WHERE id_producto = ?', [id]);
+        res.send({ message: 'Producto eliminado correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        res.status(500).send({ error: 'Error al eliminar el producto' });
     }
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
-    try {
-        let id = req.params.id;
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`DELETE Productos WHERE id=${id}`);
-        res.json(result);
-    } catch (e) {
-        res.send({ error: e })
-    }
-});
+
+   
 
 export default router;

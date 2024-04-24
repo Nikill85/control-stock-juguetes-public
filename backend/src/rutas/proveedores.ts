@@ -1,70 +1,65 @@
 import express, { Request, Response } from 'express';
-import sql, { ConnectionPool } from 'mssql';
+import mysql from 'mysql2/promise';
 
-const configuracionBD = {
-    user: 'sa',
-    password: 'nilda123_123',
-    server: 'localhost\\SQLEXPRESS',
-    database: 'control_stock_juguetes',
-    options: {
-        encrypt: true,
-        trustServerCertificate: true
-    }
-};
+var conexion = mysql.createPool({
+    host:'localhost',
+    port:3306,
+    user: 'root',
+    password:'yduz2uro',
+    database:'proyecto_final'
+});
+
 
 const router = express.Router();
 
+
 router.get('/', async (req: Request, res: Response) => {
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`SELECT * FROM Proveedores`);
-        res.json(result.recordset);
-    } catch (e) {
-        res.send({ error: e })
+        const [rows, fields] = await conexion.execute('SELECT * FROM proyecto_final.proveedores');
+        res.send(rows);
+    } catch (error) {
+        console.error('Error al obtener los proveedores:', error);
+        res.status(500).send({ error: 'Error al obtener los proveedores' });
     }
 });
 
 router.post('/', async (req: Request, res: Response) => {
+    const { nombre,direccion,telefono } = req.body;
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { nombre, direccion } = req.body;
-        const result = await pool.request()
-            .input('nom', sql.VarChar, nombre)
-        
-            .input('dir', sql.VarChar, direccion)
-            .query(`INSERT INTO Proveedores (nombre,direccion) VALUES (@nom, @dir) SELECT SCOPE_IDENTITY() AS ProveedoresID`);
-        res.send(result.recordset[0]);
-    } catch (e) {
-        res.send({ error: e });
+        await conexion.execute('INSERT INTO proyecto_final.proveedores (nombre, direccion,telefono) VALUES (?, ?, ?)', [nombre,direccion,telefono]);
+        res.status(201).send({ message: 'Proveedor creado correctamente' });
+    } catch (error) {
+        console.error('Error al crear el proveedor:', error);
+        res.status(500).send({ error: 'Error al crear el pproveedor' });
+    }
+
+   
+});
+
+router.put('/', async (req: Request, res: Response) => {
+    const { id, nombre, direccion, telefono } = req.body; // Acceder al id desde el cuerpo de la solicitud
+    try {
+        await conexion.execute('UPDATE proyecto_final.productos SET nombre = ?, direccion = ?, telefono = ?  WHERE id_proveedor = ?', [nombre,direccion,telefono, id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
+        res.send({ message: 'Producto actualizado correctamente' });
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send({ error: 'Error al actualizar el producto' });
     }
 });
 
-router.put('/:id', async (req: Request, res: Response) => {
+
+router.delete('/', async (req: Request, res: Response) => {
+    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
     try {
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const { nombre,direccion } = req.body;
-        const id = req.params.id;
-        const result = await pool.request()
-            .input('id', sql.Int, id)
-            .input('nom', sql.VarChar, nombre)
-        
-            .input('dir', sql.VarChar, direccion)
-            .query(`UPDATE Proveedores SET nombreApellido=@nom, direccion=@dir WHERE id=@id`);
-        res.send(result);
-    } catch (e) {
-        res.send({ error: e });
+        await conexion.execute('DELETE FROM proyecto_final.proveedor WHERE id_proveedor = ?', [id]);
+        res.send({ message: 'Proveedor eliminado correctamente' });
+    } catch (error) {
+        console.error('Error al eliminar el proveedor:', error);
+        res.status(500).send({ error: 'Error al eliminar el proveedor' });
     }
 });
 
-router.delete('/:id', async (req: Request, res: Response) => {
-    try {
-        let id = req.params.id;
-        const pool: ConnectionPool = await sql.connect(configuracionBD);
-        const result = await pool.request().query(`DELETE Proveedores WHERE id=${id}`);
-        res.json(result);
-    } catch (e) {
-        res.send({ error: e })
-    }
-});
+
+   
 
 export default router;

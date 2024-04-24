@@ -10,11 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mysql": "^2.15.26",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "lodash": "^4.17.21",
-    "mssql": "^10.0.2"
+    "mssql": "^10.0.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

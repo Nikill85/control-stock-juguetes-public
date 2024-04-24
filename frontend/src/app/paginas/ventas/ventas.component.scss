@@ -1,0 +1,105 @@
+.container-fluid {
+    padding: 20px; /* Espaciado interno */
+    background-color: #AB6EC9; /* Violeta para el fondo */
+  }
+  
+  /* Estilos para los títulos */
+  h4 {
+    color: white; /* Letras blancas */
+    margin-bottom: 20px; /* Espacio inferior */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra suave para efecto de relieve */
+    font-size: 24px; /* Tamaño de fuente un poco más grande */
+  }
+  
+  /* Estilos para los botones */
+  .btn_new {
+    cursor: pointer;
+    color: white; /* Letras blancas */
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #47BC9B; /* Azul claro para los botones */
+    border: none;
+    border-radius: 30px;
+    padding: 12px 36px; /* Aumentamos el relleno para que los botones se vean más grandes */
+    margin-right: 10px; /* Espacio derecho entre botones */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+  }
+  
+  .btn_new:hover {
+    background-color: darken(#47BC9B, 10%); /* Oscurecer el color de fondo al pasar el ratón */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Aumentamos la sombra al pasar el ratón */
+  }
+  
+  /* Estilos para los inputs */
+  .input_new {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ccc; /* Borde del input */
+    border-radius: 5px;
+    color: #333; /* Letras de color oscuro */
+    font-size: 16px; /* Tamaño de fuente un poco más grande */
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra interna para efecto de relieve */
+  }
+  
+  /* Estilos para la tabla */
+  #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td,
+  #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  #customers tr:hover {
+    background-color: #ddd;
+  }
+  
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:#808af5; /* Cambiado a un tono de violeta más oscuro */
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.925), 0 1px 3px rgba(0, 0, 0, 0.08); /* Añadido efecto de sombra */
+    border-top: 1px solid rgba(255, 255, 255, 0.678); /* Añadido borde superior */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.685); /* Añadido borde inferior */
+}
+
+  
+  /* Estilos para los iconos */
+  .icono_edit,
+  .icono_trash {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .icono_edit:hover {
+    color: #04AA6D;
+  }
+  
+  .icono_trash:hover {
+    color: red;
+  }
+  
+  /* Estilos para los contenedores de inputs */
+  .input_container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .label_input {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  

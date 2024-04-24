@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class ProveedoresService {
   url = `http://localhost:3000/proveedores`;
   constructor(private httpClient: HttpClient) { }
 
-  getClientes() {
+  getProveedores() {
     return this.httpClient.get(this.url);
   }
 }

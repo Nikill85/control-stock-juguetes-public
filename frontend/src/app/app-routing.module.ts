@@ -36,8 +36,8 @@ const routes: Routes = [
     component: ProductoComponent
   },
   {
-    path: 'configuracion',
-    component: ConfiguracionComponent
+    path: 'tipo-producto',
+    component: TipoProductoComponent
   },
   {
     path: 'compras',
