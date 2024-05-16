@@ -49,7 +49,7 @@ export class VentasComponent implements OnInit {
 
   calcularTotal(){
     console.log(this.productoSelected);
-    this.ventaRequest.ProductoID = this.productoSelected.Id;
+    this.ventaRequest.ProductoID = this.productoSelected.id_producto;
   }
   metodoEjemplo(evt){
     console.log(evt);

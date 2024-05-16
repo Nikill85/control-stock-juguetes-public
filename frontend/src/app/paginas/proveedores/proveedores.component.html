@@ -9,18 +9,12 @@
         <div class="col-4">
             <div class="input_container">
                 <label for="" class="label_input">Nombre</label>
-                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.descripcion" />
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.nombre" />
             </div>
         </div>
         <div class="col-4">
             <div class="input_container">
-                <label for="" class="label_input">Email</label>
-                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.email" />
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="input_container">
-                <label for="" class="label_input">Provincia</label>
+                <label for="" class="label_input">Direccion</label>
                 <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.direccion" />
             </div>
         </div>
@@ -28,6 +22,12 @@
             <div class="input_container">
                 <label for="" class="label_input">Telefono</label>
                 <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.telefono" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input_container">
+                <label for="" class="label_input">e-mail</label>
+                <input type="text" class="input_new" [(ngModel)]="nuevoProveedor.email" />
             </div>
         </div>
      
@@ -51,23 +51,25 @@
                 <table id="customers">
                     <thead>
                         <tr>
+                            <th>id</th>
                             <th>Nombre</th>
-                            <th>Email</th>
                             <th>Direccion</th>
                             <th>Telefono</th>
+                            <th>E-mail</th>
                             <th style="width: 3rem;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let proveedor of proveedores">
-                            <td>{{proveedor.descripcion}}</td>
-                            <td>{{proveedor.email}}</td>
+                            <td>{{proveedor.id_proveedores}}</td>
+                            <td>{{proveedor.nombre}}</td>
                             <td>{{proveedor.direccion}}</td>
                             <td>{{proveedor.telefono}}</td>
+                            <td>{{proveedor.email}}</td>
                            
                             <td style="text-align: center;">
                                 <i class="pi pi-pencil icono_edit" (click)="editarProveedor(proveedor)"></i>
-                                <i class="pi pi-trash icono_trash" (click)="eliminarProveedor(proveedor)"></i>
+                                <i class="pi pi-trash icono_trash" (click)="eliminarProveedorr(proveedor)"></i>
                             </td>
                         </tr>
                     </tbody>

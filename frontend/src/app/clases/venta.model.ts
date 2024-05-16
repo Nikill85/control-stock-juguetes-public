@@ -1,12 +1,13 @@
 export class Venta {
-    Fecha: Date | undefined;
-    VentaID: number | undefined
-    ClienteID: number | undefined;
-    nombreApellido: string | undefined;
-    ProductoID: number | undefined;
-    Descripcion: string | undefined;
-    Cantidad: number | undefined;
-    Total: number | undefined;
+     id_ventas: number | undefined
+     fecha_venta: Date | undefined;
+     fk_producto: number | undefined;
+     cantidad: number | undefined;
+     total_venta: number | undefined;
+    
+   
+    
+    
 
     constructor() { }
 }

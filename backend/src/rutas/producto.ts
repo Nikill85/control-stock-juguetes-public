@@ -5,7 +5,7 @@ var conexion = mysql.createPool({
     host:'localhost',
     port:3306,
     user: 'root',
-    password:'yduz2uro',
+    password:'yduz2urogsgovg',
     database:'proyecto_final'
 });
 
@@ -42,7 +42,7 @@ router.put('/', async (req: Request, res: Response) => {
         await conexion.execute('UPDATE proyecto_final.productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
         res.send({ message: 'Producto actualizado correctamente' });
     } catch (error) {
-        console.error('Error al actualizar el producto:', error);
+        console.error('Error al actualizar el proveedor:', error);
         res.status(500).send({ error: 'Error al actualizar el producto' });
     }
 });

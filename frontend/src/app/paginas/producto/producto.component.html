@@ -9,15 +9,15 @@
         <div class="col-6">
             <div class="input_container">
                 <label for="" class="label_input">Descripcion</label>
-                <input type="text" class="input_new" [(ngModel)]="producto.Descripcion" />
+                <input type="text" class="input_new" [(ngModel)]="producto.descripcion" />
             </div>
         </div>
         <div class="col-6">
             <div class="input_container">
-                <label for="" class="label_input">Precio</label>
+                <label for="" class="label_input">Precio Costo</label>
                 <div style="width: 100%; display: flex; flex-direction: row;">
                     <span>$</span>
-                    <input type="text" class="input_new" [(ngModel)]="producto.Precio" />
+                    <input type="text" class="input_new" [(ngModel)]="producto.precio" />
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
         <div class="col-6">
             <div class="input_container">
                 <label for="" class="label_input">Tipo Producto</label>
-                <select class="input_new" [(ngModel)]="producto.TipoProductoID">
-                    <option *ngFor="let tp of tipoProductos" ngValue="{{tp.Id}}">{{tp.Descripcion}}</option>
+                <select class="input_new" [(ngModel)]="producto.fk_tipoProducto">
+                    <option *ngFor="let tp of tipoProductos" ngValue="{{tp.descripcion}}">{{tp.descripcion}}</option>
                 </select>
             </div>
         </div>
@@ -53,16 +53,16 @@
                         <th>Descripcion</th>
                         <th>Precio</th>
                         <th>Tipo</th>
-                        <th>Stock</th>
+                        <!-- <th>Stock</th> -->
                         <th style="width: 3rem;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let producto of productos">
-                        <td>{{producto.Descripcion}}</td>
-                        <td>{{producto.Precio | currency}}</td>
-                        <td>{{producto.TipoProducto}}</td>
-                        <td>{{producto.Cantidad | noStock}}</td>
+                        <td>{{producto.descripcion}}</td>
+                        <td>{{producto.precio | currency}}</td>
+                        <td>{{producto.fk_tipoProducto}}</td>
+                        <!-- <td>{{producto.Stock | noStock}}</td> -->
                         <td style="text-align: center;">
                             <i class="pi pi-pencil icono_edit" (click)="editarProducto(producto)"></i>
                             <i class="pi pi-trash icono_trash" (click)="eliminarProducto(producto)"></i>

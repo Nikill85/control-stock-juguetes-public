@@ -1,6 +1,6 @@
 export class TipoProducto {
-    Id: number | undefined;
-    Descripcion: string | undefined;
+    id_tipo_producto: number | undefined;
+    descripcion: string | undefined;
 
     constructor() {
 

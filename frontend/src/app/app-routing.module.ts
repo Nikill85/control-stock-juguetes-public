@@ -13,13 +13,13 @@ import { LoguinComponent } from './componentes/loguin/loguin.component';
 import { HomeComponent } from './componentes/home/home.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full'
-  // },
   {
     path: '',
+    redirectTo: '/loguin', // Redirige a '/loguin' cuando se ingresa la raíz
+    pathMatch: 'full'
+  },
+  {
+    path: 'loguin',
     component: LoguinComponent
   },
   {
@@ -52,7 +52,7 @@ const routes: Routes = [
     component: StockComponent
   },
   {
-    path: "**",
+    path: '**',
     component: Error404Component
   }
 ];

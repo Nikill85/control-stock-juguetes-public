@@ -20,16 +20,18 @@ export class ProductoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getProducto();
+    this.getProductos();
     this.getTiposDeProducto();
   }
 
-  getProducto() {
+  getProductos() {
     this.httpClient.get('http://localhost:3000/producto').subscribe((productos: Producto[]) => {
-      console.log(productos);
+      console.log("PRODUCTOS: ", productos);
+      
       this.productos = productos;
     });
   }
+
 
   getTiposDeProducto() {
     this.tipoProductoService.obtenerTiposDeProducto()
@@ -40,11 +42,11 @@ export class ProductoComponent implements OnInit {
   }
 
   editarProducto(producto: Producto): void {
-    this.producto.Cantidad = producto.Cantidad;
-    this.producto.Id = producto.Id;
-    this.producto.Descripcion = producto.Descripcion;
-    this.producto.Precio = producto.Precio;
-    this.producto.TipoProductoID = producto.TipoProductoID.toString();
+    
+    this.producto.id_producto = producto.id_producto;
+    this.producto.descripcion = producto.descripcion;
+    this.producto.precio = producto.precio;
+    this.producto.fk_tipoProducto = producto.fk_tipoProducto.toString();
     this.esEdit = true;
   }
 
@@ -59,7 +61,7 @@ export class ProductoComponent implements OnInit {
     });
   }
   actualizarProducto() {
-    this.httpClient.put(`http://localhost:3000/producto/${this.producto.Id}`, this.producto).subscribe(data => {
+    this.httpClient.put(`http://localhost:3000/producto/${this.producto.id_producto}`, this.producto).subscribe(data => {
       console.log("insert prod", data);
     });
   }

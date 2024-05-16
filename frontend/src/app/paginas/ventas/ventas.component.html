@@ -10,7 +10,7 @@
             <div class="input_container">
                 <label for="" class="label_input">Producto</label>
                 <select class="input_new" [(ngModel)]="productoSelected" (change)="calcularTotal()">
-                    <option *ngFor="let p of productos" [ngValue]="p">{{p.Descripcion}}</option>
+                    <option *ngFor="let p of productos" [ngValue]="p">{{p.descripcion}}</option>
                 </select>
             </div>
         </div>
@@ -23,7 +23,7 @@
         <div class="col-3">
             <div class="input_container">
                 <label class="label_input">Total</label>
-                <input type="number" class="input_new" *ngIf="productoSelected && ventaRequest.Cantidad"  value="{{ventaRequest.Cantidad * productoSelected.Precio}}" disabled>
+                <input type="number" class="input_new" *ngIf="productoSelected && ventaRequest.Cantidad"  value="{{ventaRequest.Cantidad * productoSelected.precio}}" disabled>
             </div>
         </div>
         <div class="col-12">
@@ -47,11 +47,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let v of ventas">
-                        <td>{{v.Fecha | date:'dd/MM/yy'}}</td>
-                        <td>{{v.nombreApellido}}</td>
-                        <td>{{v.Descripcion}}</td>
-                        <td>{{v.Cantidad}}</td>
-                        <td>{{v.Total | currency}}</td>
+                        <td>{{v.fecha_venta| date:'dd/MM/yy'}}</td>
+                        <td>{{v.fk_producto}}</td>
+                      
+                        <td>{{v.cantidad}}</td>
+                        <td>{{v.total_venta| currency}}</td>
                     </tr>
                 </tbody>
             </table>

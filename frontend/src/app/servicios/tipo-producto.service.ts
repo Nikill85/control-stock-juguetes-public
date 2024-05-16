@@ -20,11 +20,11 @@ export class TipoProductoService {
   }
 
   eliminarTipo(tipoProd: TipoProducto) {
-    return this.httpClient.delete(`${this.url}/${tipoProd.Id}`)
+    return this.httpClient.delete(`${this.url}/${tipoProd.id_tipo_producto}`)
   }
 
   editarTipoProducto(editarOnuevoTipoProducto: TipoProducto){
-    return this.httpClient.put(`${this.url}/${editarOnuevoTipoProducto.Id}`, editarOnuevoTipoProducto)
+    return this.httpClient.put(`${this.url}/${editarOnuevoTipoProducto.id_tipo_producto}`, editarOnuevoTipoProducto)
   }
 
 }

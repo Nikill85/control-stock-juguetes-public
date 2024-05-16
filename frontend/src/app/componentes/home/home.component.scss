@@ -6,6 +6,7 @@
     justify-content: center; /* Centra los elementos horizontalmente */
     align-items: center;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada para efecto de elevación */
+    margin-top: -10px; /* Ajuste de margen superior */
   }
   
   /* Estilos para los botones del menú */
@@ -44,8 +45,18 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
   transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave al pasar el ratón */
   margin-top: 5px;/* Cambiar el margen inferior */
+  margin-left: 20px; /* Agrega espacio a la izquierda del botón */
 }
 
 .logout-button:hover {
   background-color: #e74c3c; /* Rojo más claro al pasar el ratón */
+}
+.welcome-message {
+  background-color: #47BC9B; /* Color de fondo */
+  color: white; /* Color del texto */
+  padding: 10px 20px; /* Espaciado interno */
+ 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  margin-top: -10px; /* Ajuste de margen superior */
+  font-weight: bold; /* Letra en negrita */
 }

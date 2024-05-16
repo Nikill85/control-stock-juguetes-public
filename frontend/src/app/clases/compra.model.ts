@@ -1,13 +1,11 @@
 export class Compra {
-    Id: number | undefined;
-    Descripcion: string | undefined;
-    FechaCompra: Date | undefined;
-    PrecioU: number | undefined;
-    Precio_Sugerido: number | undefined;
-    TipoProducto: string | undefined;
-    TipoProductoID: any | undefined;
-    Cantidad: number | undefined;
-    Total: number | undefined;
+    id_compras: number | undefined;
+    fecha_compra: Date | undefined;
+    fk_producto: number;
+    cantidad: number | undefined;
+    precio_costoUnitario: number | undefined;
+    total_costoCompra: number | undefined;
+     fk_proveedor: number | undefined;
 
     constructor() {
 

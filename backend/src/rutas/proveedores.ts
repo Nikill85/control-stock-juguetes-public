@@ -5,7 +5,7 @@ var conexion = mysql.createPool({
     host:'localhost',
     port:3306,
     user: 'root',
-    password:'yduz2uro',
+    password:'yduz2urogsgovg',
     database:'proyecto_final'
 });
 
@@ -24,9 +24,9 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
-    const { nombre,direccion,telefono } = req.body;
+    const { nombre,email,direccion,telefono } = req.body;
     try {
-        await conexion.execute('INSERT INTO proyecto_final.proveedores (nombre, direccion,telefono) VALUES (?, ?, ?)', [nombre,direccion,telefono]);
+        await conexion.execute('INSERT INTO proyecto_final.proveedores (nombre,email, direccion,telefono) VALUES (?, ?, ?,?)', [nombre,email,direccion,telefono]);
         res.status(201).send({ message: 'Proveedor creado correctamente' });
     } catch (error) {
         console.error('Error al crear el proveedor:', error);
@@ -37,28 +37,38 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 router.put('/', async (req: Request, res: Response) => {
-    const { id, nombre, direccion, telefono } = req.body; // Acceder al id desde el cuerpo de la solicitud
+    const { id,nombre,email,direccion,telefono } = req.body; // Acceder al id desde el cuerpo de la solicitud
     try {
-        await conexion.execute('UPDATE proyecto_final.productos SET nombre = ?, direccion = ?, telefono = ?  WHERE id_proveedor = ?', [nombre,direccion,telefono, id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
-        res.send({ message: 'Producto actualizado correctamente' });
+        await conexion.execute('UPDATE proyecto_final.proveedores SET nombre = ?, email= ?,direccion =?,telefono = ? WHERE id_proveedores = ?', [nombre,email,direccion,telefono ,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
+        res.send({ message: 'Proveedor actualizado correctamente' });
     } catch (error) {
-        console.error('Error al actualizar el producto:', error);
-        res.status(500).send({ error: 'Error al actualizar el producto' });
+        console.error('Error al actualizar el proveedor:', error);
+        res.status(500).send({ error: 'Error al actualizar el proveedor' });
     }
 });
 
 
-router.delete('/', async (req: Request, res: Response) => {
-    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+// router.delete('/', async (req: Request, res: Response) => {
+//     const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+//     try {
+//         await conexion.execute('DELETE FROM proyecto_final.proveedor WHERE id_proveedor = ?', [id]);
+//         res.send({ message: 'Proveedor eliminado correctamente' });
+//     } catch (error) {
+//         console.error('Error al eliminar el proveedor:', error);
+//         res.status(500).send({ error: 'Error al eliminar el proveedor' });
+//     }
+// });
+
+router.delete('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id; // Acceder al id desde los parámetros de la URL
     try {
-        await conexion.execute('DELETE FROM proyecto_final.proveedor WHERE id_proveedor = ?', [id]);
+        await conexion.execute('DELETE FROM proyecto_final.proveedores WHERE id_proveedores = ?', [id]);
         res.send({ message: 'Proveedor eliminado correctamente' });
     } catch (error) {
         console.error('Error al eliminar el proveedor:', error);
         res.status(500).send({ error: 'Error al eliminar el proveedor' });
     }
 });
-
 
    
 

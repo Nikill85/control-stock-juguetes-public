@@ -5,7 +5,7 @@ var conexion = mysql.createPool({
     host:'localhost',
     port:3306,
     user: 'root',
-    password:'yduz2uro',
+    password:'yduz2urogsgovg',
     database:'proyecto_final'
 });
 

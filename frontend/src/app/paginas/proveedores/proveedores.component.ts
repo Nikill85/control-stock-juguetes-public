@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/servicios/message.service';
 import * as _ from 'lodash';
 import { Proveedor } from 'src/app/clases/proveedor.model';
+import { ProveedoresService } from 'src/app/servicios/proveedores.service';
 
 @Component({
   selector: 'app-proveedores',
@@ -16,7 +17,8 @@ export class ProveedoresComponent implements OnInit {
   esEdit: boolean;
   constructor(
     private httpClient: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private proveedoresService: ProveedoresService
   ) { }
 
   ngOnInit(): void {
@@ -24,23 +26,28 @@ export class ProveedoresComponent implements OnInit {
   }
 
   getProveedores() {
-    this.httpClient.get(`http://localhost:3000/proveedores`).subscribe((proveedores: Proveedor[]) => {
+    this.httpClient.get(`http://localhost:3000/proveedor`).subscribe((proveedores: Proveedor[]) => {
       console.log("PROVEEDORES: ", proveedores);
       this.proveedores = proveedores;
     });
   }
   crearProveedor() {
-    this.httpClient.post(`http://localhost:3000/proveedores`, this.nuevoProveedor).subscribe((data: any) => {
+    this.httpClient.post(`http://localhost:3000/proveedor`, this.nuevoProveedor).subscribe((data: any) => {
       console.log(data);
       if (data.ProveedorID) {
-        this.nuevoProveedor.id = data.ClienteID;
+        this.nuevoProveedor.id_proveedores = data.ClienteID;
         this.proveedores.push(this.nuevoProveedor);
         this.nuevoProveedor = new Proveedor();
-        this.messageService.automaticMessageOk(`Cliente agregado correctamente`);
+        this.messageService.automaticMessageOk(`Proveedor agregado correctamente`);
       }
     });
   }
   actualizarProveedor() {
+    this.esEdit = false;
+    this.proveedoresService.editProveedor(this.nuevoProveedor)
+      .subscribe(respuesta => {
+        console.log(respuesta);
+      });
 
   }
   cancelarUpdate() {
@@ -49,20 +56,30 @@ export class ProveedoresComponent implements OnInit {
   }
 
   editarProveedor(proveedor) {
-    this.nuevoProveedor.id =proveedor.id;
-    this.nuevoProveedor.descripcion = proveedor.descripcion;
+    this.nuevoProveedor.id_proveedores = proveedor.id_proveedores ;
+    this.nuevoProveedor.nombre = proveedor.nombre;
     this.nuevoProveedor.direccion = proveedor.direccion;
-    this.esEdit = true;
+    this.nuevoProveedor.telefono = proveedor.telefono;
+    this.nuevoProveedor.email = proveedor.email;
+   this.esEdit = true;
+    
+    
   }
-  eliminarProveedor(proveedor: Proveedor) {
-    this.messageService.confirmMessage(``, `Seguro que desea eliminar el usuario ${proveedor.descripcion}`, `Eliminar`, `warning`)
+  eliminarProveedorr(proveedor: Proveedor) {
+    this.messageService.confirmMessage(``, `Seguro que desea eliminar el usuario ${proveedor.nombre}`, `Eliminar`, `warning`)
       .then(r => {
         if (r.isConfirmed) {
-          this.httpClient.delete(`http://localhost:3000/proveedores/${proveedor.id}`).subscribe((data: any) => {
-            _.remove(this.proveedores, function (o) { return o.id == proveedor.id });
-            console.log("DATA", data);
-          });
+          this.eliminarProv(proveedor.id_proveedores); // Asegúrate de pasar el ID del proveedor
         }
-      })
+      });
   }
+  
+  eliminarProv(id: number) {
+    this.proveedoresService.eliminarProveedor(id)
+      .subscribe(respuesta => {
+        console.log(respuesta);
+        this.getProveedores();
+      });
+  }
+  
 }
