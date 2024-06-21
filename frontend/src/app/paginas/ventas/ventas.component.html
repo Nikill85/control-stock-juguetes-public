@@ -1,5 +1,5 @@
 <app-home></app-home>
-<div class="container-fluid" style="color: white;">
+<div class="container-fluid" style="color: white; height: 100vh;">
 
     <div class="row">
         <div class="col-12" style="display: flex; align-items: center;">
@@ -46,12 +46,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let v of ventas">
-                        <td>{{v.fecha_venta| date:'dd/MM/yy'}}</td>
+                    <tr *ngFor="let venta of ventas">
+                        <td>{{venta.fecha_venta| date:'dd/MM/yy'}}</td>
                      
-                        <td>{{v.fk_producto}}</td>
-                        <td>{{v.cantidad}}</td>
-                        <td>{{v.total_venta| currency}}</td>
+                        <td>{{venta.fk_producto}}</td>
+                        <td>{{venta.cantidad}}</td>
+                        <td>{{venta.total_venta| currency}}</td>
                     </tr>
                 </tbody>
             </table>

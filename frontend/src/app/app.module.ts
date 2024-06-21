@@ -28,6 +28,7 @@ import { VentasComponent } from './paginas/ventas/ventas.component';
 import { ProveedoresComponent } from './paginas/proveedores/proveedores.component';
 import { LoguinComponent } from './componentes/loguin/loguin.component';
 import { HomeComponent } from './componentes/home/home.component';
+
 @NgModule(
   {
     //Componentes de la aplicacion, AppComponent/ErrorComponent/HomeComponent/etc
@@ -58,7 +59,8 @@ import { HomeComponent } from './componentes/home/home.component';
       DialogModule,
       TableModule,
       HttpClientModule,
-      ToggleButtonModule
+      ToggleButtonModule,
+      HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]

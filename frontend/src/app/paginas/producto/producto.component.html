@@ -28,10 +28,11 @@
             <div class="input_container">
                 <label for="" class="label_input">Tipo Producto</label>
                 <select class="input_new" [(ngModel)]="producto.fk_tipoProducto">
-                    <option *ngFor="let tp of tipoProductos" ngValue="{{tp.descripcion}}">{{tp.descripcion}}</option>
+                    <option *ngFor="let tp of tipoProductos" [ngValue]="tp.id_tipo_producto">{{tp.descripcion}}</option>
                 </select>
             </div>
         </div>
+        
         <div class="col-6">
             <div *ngIf="!esEdit">
                 <button pButton (click)="crearProducto()" label="Crear" class="p-button-success btn_new"></button>
@@ -51,6 +52,7 @@
             <table id="customers">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Descripcion</th>
                         <th>Precio</th>
                         <th>Tipo</th>
@@ -60,9 +62,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let producto of productos">
+                        <td>{{producto.id_producto}}</td>
                         <td>{{producto.descripcion}}</td>
                         <td>{{producto.precio | currency}}</td>
-                        <td>{{producto.fk_tipoProducto}}</td>
+                        <td>{{getTipoProductoDescripcion(producto.fk_tipoProducto)}}</td>
                         <!-- <td>{{producto.Stock | noStock}}</td> -->
                         <td style="text-align: center;">
                             <i class="pi pi-pencil icono_edit" (click)="editarProducto(producto)"></i>

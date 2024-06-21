@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { TipoProducto } from 'src/app/clases/tipoProducto.model';
 import { TipoProductoService } from 'src/app/servicios/tipo-producto.service';
+import { MessageService } from 'src/app/servicios/message.service';
 
 @Component({
   selector: 'app-tipo-producto',
@@ -10,11 +11,11 @@ import { TipoProductoService } from 'src/app/servicios/tipo-producto.service';
 })
 export class TipoProductoComponent implements OnInit {
 
-  constructor(private tipoProductoService: TipoProductoService) { }
+  constructor(private tipoProductoService: TipoProductoService,private messageService: MessageService) { }
   tipoProductos: TipoProducto[] = new Array<TipoProducto>();
 
   editarOnuevoTipoProducto: TipoProducto = new TipoProducto();
-
+  copiaTipoProducto: TipoProducto = new TipoProducto(); 
   estoyEditando: boolean;
 
   ngOnInit(): void {
@@ -37,8 +38,24 @@ export class TipoProductoComponent implements OnInit {
       });
   }
 
-  eliminarTipo(tipoProd: TipoProducto) {
-    this.tipoProductoService.eliminarTipo(tipoProd)
+  // eliminarTipo(tipoProd: TipoProducto) {
+  //   this.tipoProductoService.eliminarTipo(tipoProd)
+  //     .subscribe(respuesta => {
+  //       console.log(respuesta);
+  //       this.obtenerTiposDeProducto();
+  //     });
+  // }
+  eliminarTipo(tipo: TipoProducto) {
+    this.messageService.confirmMessage(``, `Seguro que desea eliminar al tipo de producto: ${tipo.descripcion}`, `Eliminar`, `warning`)
+      .then(r => {
+        if (r.isConfirmed) {
+          this.eliminarTi(tipo.id_tipo_producto); 
+        }
+      });
+  }
+  
+  eliminarTi(id: number) {
+    this.tipoProductoService.eliminarTipo(id)
       .subscribe(respuesta => {
         console.log(respuesta);
         this.obtenerTiposDeProducto();
@@ -47,18 +64,25 @@ export class TipoProductoComponent implements OnInit {
 
   editarTipo(tipoProd: TipoProducto) {
     console.log(tipoProd);
+    this.editarOnuevoTipoProducto = { ...tipoProd };
+    this.copiaTipoProducto = { ...tipoProd };
     this.estoyEditando = true;
-    this.editarOnuevoTipoProducto = tipoProd;
   }
   salvarEdicion() {
     this.estoyEditando = false;
+    const index = this.tipoProductos.findIndex(tp => tp.id_tipo_producto === this.editarOnuevoTipoProducto.id_tipo_producto);
+    if (index !== -1) {
+      this.tipoProductos[index] = this.editarOnuevoTipoProducto ;
+    }
     this.tipoProductoService.editarTipoProducto(this.editarOnuevoTipoProducto)
       .subscribe(respuesta => {
         console.log(respuesta);
-      });
+        
+      } );
+    
   }
   cancelarEdicion() {
     this.estoyEditando = false;
-    this.editarOnuevoTipoProducto = new TipoProducto();
+    this.editarOnuevoTipoProducto = { ...this.copiaTipoProducto };
   }
 }

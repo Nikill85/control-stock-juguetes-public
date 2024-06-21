@@ -16,6 +16,7 @@ export class VentasComponent implements OnInit {
   ventaRequest: VentaRequest = new VentaRequest();
   productoSelected: Producto;
   ventas: Venta[];
+  ven:  Venta = new Venta()
   productos: Producto[];
 
   constructor(

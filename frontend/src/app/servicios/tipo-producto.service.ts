@@ -19,12 +19,15 @@ export class TipoProductoService {
     return this.httpClient.post(this.url, tipo);
   }
 
-  eliminarTipo(tipoProd: TipoProducto) {
-    return this.httpClient.delete(`${this.url}/${tipoProd.id_tipo_producto}`)
+  eliminarTipo(id: number) {
+    return this.httpClient.delete(`${this.url}/${id}`);
   }
 
   editarTipoProducto(editarOnuevoTipoProducto: TipoProducto){
+    console.log('Enviando solicitud PUT para editar:', editarOnuevoTipoProducto);
     return this.httpClient.put(`${this.url}/${editarOnuevoTipoProducto.id_tipo_producto}`, editarOnuevoTipoProducto)
   }
+  
+ 
 
-}
+  }

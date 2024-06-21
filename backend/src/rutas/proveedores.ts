@@ -36,8 +36,9 @@ router.post('/', async (req: Request, res: Response) => {
    
 });
 
-router.put('/', async (req: Request, res: Response) => {
-    const { id,nombre,email,direccion,telefono } = req.body; // Acceder al id desde el cuerpo de la solicitud
+router.put('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const { nombre,email,direccion,telefono } = req.body; // Acceder al id desde el cuerpo de la solicitud
     try {
         await conexion.execute('UPDATE proyecto_final.proveedores SET nombre = ?, email= ?,direccion =?,telefono = ? WHERE id_proveedores = ?', [nombre,email,direccion,telefono ,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
         res.send({ message: 'Proveedor actualizado correctamente' });

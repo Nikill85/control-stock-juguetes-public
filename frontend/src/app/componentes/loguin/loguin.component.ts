@@ -18,7 +18,7 @@ export class LoguinComponent implements OnInit {
   ngOnInit() {
     this.login.iniciarConectado();
     if (this.login.getConectado().conectado) {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/stock']);
     }
   }
 
@@ -36,7 +36,7 @@ export class LoguinComponent implements OnInit {
 
   ingresar() {
     this.entrar = true;
-    this.messageService.automaticMessageOk(`Bienvenido`);
-    this.router.navigate(['/home']);
+    this.messageService.automaticMessageOk(`Bienvenido Admin`);
+    this.router.navigate(['/stock']);
   }
 }

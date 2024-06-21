@@ -40,6 +40,7 @@ export class ProveedoresComponent implements OnInit {
         this.nuevoProveedor = new Proveedor();
         this.messageService.automaticMessageOk(`Proveedor agregado correctamente`);
       }
+      this.getProveedores();
     });
   }
   actualizarProveedor() {
@@ -47,6 +48,7 @@ export class ProveedoresComponent implements OnInit {
     this.proveedoresService.editProveedor(this.nuevoProveedor)
       .subscribe(respuesta => {
         console.log(respuesta);
+        this.getProveedores();
       });
 
   }

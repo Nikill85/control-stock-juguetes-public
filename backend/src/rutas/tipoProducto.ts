@@ -36,11 +36,13 @@ router.post('/', async (req: Request, res: Response) => {
    
 });
 
-router.put('/', async (req: Request, res: Response) => {
-    const { id, descripcion } = req.body; // Acceder al id desde el cuerpo de la solicitud
+router.put('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const { descripcion } = req.body;
+
     try {
-        await conexion.execute('UPDATE proyecto_final.tipo_producto SET descripcion = ? WHERE id_tipo_producto = ?', [descripcion,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
-        res.send({ message: 'Descripcion actualizado correctamente' });
+        await conexion.execute('UPDATE proyecto_final.tipo_producto SET descripcion = ? WHERE id_tipo_producto = ?', [descripcion, id]);
+        res.send({ message: 'Descripción actualizada correctamente' });
     } catch (error) {
         console.error('Error al actualizar el tipo de producto:', error);
         res.status(500).send({ error: 'Error al actualizar el tipo de producto' });
@@ -48,16 +50,29 @@ router.put('/', async (req: Request, res: Response) => {
 });
 
 
-router.delete('/', async (req: Request, res: Response) => {
-    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+// router.delete('/', async (req: Request, res: Response) => {
+//     const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+//     try {
+//         await conexion.execute('DELETE FROM proyecto_final.tipo_producto WHERE id_tipo_producto = ?', [id]);
+//         res.send({ message: 'Tipo de producto eliminado correctamente' });
+//     } catch (error) {
+//         console.error('Error al eliminar el tipo de producto:', error);
+//         res.status(500).send({ error: 'Error al eliminar el tipo de producto' });
+//     }
+// });
+router.delete('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id; // Acceder al id desde los parámetros de la URL
     try {
         await conexion.execute('DELETE FROM proyecto_final.tipo_producto WHERE id_tipo_producto = ?', [id]);
-        res.send({ message: 'Tipo de producto eliminado correctamente' });
+        res.send({ message: 'Tipo producto eliminado correctamente' });
     } catch (error) {
-        console.error('Error al eliminar el tipo de producto:', error);
-        res.status(500).send({ error: 'Error al eliminar el tipo de producto' });
+        console.error('Error al eliminar el Tipo de Producto:', error);
+        res.status(500).send({ error: 'Error al eliminar el Tipo de Producto' });
     }
 });
+
+
+
 
 
    
