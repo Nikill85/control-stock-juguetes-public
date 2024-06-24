@@ -56,9 +56,7 @@ export class ProductoComponent implements OnInit {
 
 
   crearProducto() {
-    const idTipoProducto = this.producto.fk_tipoProducto; // Obtener el ID del tipo de producto
-    
-    // Crear un objeto solo con el ID del tipo de producto
+    const idTipoProducto = this.producto.fk_tipoProducto; 
     const productoConTipo = { 
       ...this.producto,
       fk_tipoProducto: idTipoProducto

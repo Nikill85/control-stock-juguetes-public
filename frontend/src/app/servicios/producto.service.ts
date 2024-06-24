@@ -1,12 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Producto } from '../clases/producto.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
   url = 'http://localhost:3000/producto';
-  constructor(private httpClient: HttpClient) { }
+  producto: Producto = new Producto();
+  
+  constructor(private httpClient: HttpClient) {
+    
+   }
 
   crearProducto(producto: any) {
     return this.httpClient.post(this.url, producto);
@@ -16,5 +21,9 @@ export class ProductoService {
   }
   eliminarProducto(id: number) {
     return this.httpClient.delete(`${this.url}/${id}`);
+  }
+
+  getPrecio():number{
+    return this.producto.precio;
   }
 }

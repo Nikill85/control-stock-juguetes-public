@@ -22,27 +22,20 @@ router.get('/', async (req: Request, res: Response) => {
         res.status(500).send({ error: 'Error al obtener las compras' });
     }
 });
-router.post('/', async (req: Request, res: Response) => {
-    const { fecha_compra, fk_producto, cantidad, precio_costoUnitario, total_costoCompra } = req.body;
-  
-    // Verifica que todos los campos requeridos estén presentes y definidos
-    if (!fecha_compra || !fk_producto || !cantidad || !precio_costoUnitario || !total_costoCompra) {
-      return res.status(400).send({ error: 'Faltan campos requeridos para crear la compra' });
-    }
-  
-    try {
-      await conexion.execute(
-        'INSERT INTO proyecto_final.compras (fecha_compra, cantidad, fk_producto, precio_costoUnitario, total_costoCompra) VALUES ( ?, ?, ?, ?, ?)',
-        [fecha_compra, cantidad, fk_producto, precio_costoUnitario, total_costoCompra]
-      );
-      res.status(201).send({ message: 'Compra creada correctamente' });
-    } catch (error) {
-      console.error('Error al crear la compra:', error);
-      res.status(500).send({ error: 'Error al crear la compra' });
-    }
-  });
 
-  
+
+  router.post('/', async (req: Request, res: Response) => {
+    const { fecha_compra, fk_producto, cantidad, total_costoCompra } = req.body;
+    try {
+        await conexion.execute('INSERT INTO proyecto_final.compras (fecha_compra, fk_producto, cantidad, total_costoCompra) VALUES (?, ?, ?,?)', [fecha_compra, fk_producto, cantidad, total_costoCompra]);
+        res.status(201).send({ message: 'Compra creada correctamente' });
+    } catch (error) {
+        console.error('Error al crear la compra:', error);
+        res.status(500).send({ error: 'Error al crear la compra' });
+    }
+
+   
+});
 
 // router.put('/:id', async (req: Request, res: Response) => {
 //     const id = req.params.id;
@@ -57,15 +50,15 @@ router.post('/', async (req: Request, res: Response) => {
 // });
 router.put('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
-    const { fecha_compra, cantidad, precio_costoUnitario, total_costoCompra } = req.body;
+    const { fecha_compra, cantidad, total_costoCompra } = req.body;
 
     // Asegurarse de que la fecha sea en formato 'YYYY-MM-DD'
     const fechaCompraFormatted = new Date(fecha_compra).toISOString().split('T')[0];
 
     try {
         await conexion.execute(
-            'UPDATE proyecto_final.compras SET fecha_compra = ?, cantidad = ?, precio_costoUnitario = ?, total_costoCompra = ? WHERE id_compras = ?',
-            [fechaCompraFormatted, cantidad, precio_costoUnitario, total_costoCompra, id]
+            'UPDATE proyecto_final.compras SET fecha_compra = ?, cantidad = ?,  total_costoCompra = ? WHERE id_compras = ?',
+            [fechaCompraFormatted, cantidad, total_costoCompra, id]
         );
         res.send({ message: 'Compra actualizada correctamente' });
     } catch (error) {

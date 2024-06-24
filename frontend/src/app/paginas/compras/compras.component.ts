@@ -6,6 +6,7 @@ import { Producto } from 'src/app/clases/producto.model';
 import { CompraRequest } from 'src/app/clases/requests/compra.request';
 import { TipoProducto } from 'src/app/clases/tipoProducto.model';
 import { ComprasService } from 'src/app/servicios/compras.service';
+import { ProductoService } from 'src/app/servicios/producto.service';
 
 
 
@@ -26,8 +27,11 @@ export class ComprasComponent implements OnInit {
   editarOnuevaCompra: Compra = new Compra();
   Compra: Compra[] = new Array<Compra>();
 
+  productoSeleccionado: Producto;
+  totalCompra: number;
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService,private comprasService: ComprasService) {}
+
+  constructor(private httpClient: HttpClient, private messageService: MessageService,private comprasService: ComprasService, private productoService: ProductoService) {}
 
   ngOnInit(): void {
     this.getCompras();
@@ -85,21 +89,25 @@ export class ComprasComponent implements OnInit {
   }
 
   // Método para calcular el total de la compra basado en cantidad y precio unitario
-  calcularTotal() {
-    if (this.compraReq.cantidad && this.compraReq.precio_costoUnitario) {
-      this.compraReq.total_costoCompra = this.compraReq.cantidad * this.compraReq.precio_costoUnitario;
-    }
+  calcularTotal() {  if (this.productoSeleccionado && this.compraReq.cantidad) {
+    this.compraReq.total_costoCompra = this.productoSeleccionado.precio * this.compraReq.cantidad;
+    this.totalCompra = this.compraReq.total_costoCompra; // Actualizar totalCompra para mostrar en el formulario
+  } else {
+    this.compraReq.total_costoCompra = null;
+    this.totalCompra = null;
   }
+ 
+  }
+
 
   // getProductoDescripcion(idProducto: number): string {
   //   const Producto = this.productos.find(p => p.id_producto === idProducto);
   //   return Producto ? Producto.descripcion : '';
   // }
   getProductoDescripcion(idProducto: number): string {
-    // Verifica si this.productos está definido y no es nulo antes de usar find
     if (this.productos && this.productos.length > 0) {
       const producto = this.productos.find(p => p.id_producto === idProducto);
-      return producto ? producto.descripcion : '';
+      return producto ? producto.descripcion : 'Descripción no disponible';
     } else {
       return 'Descripción no disponible';
     }
@@ -122,26 +130,29 @@ export class ComprasComponent implements OnInit {
 
       
   }
-
   editarCompra(com: Compra) {
-    this.compraReq.id_compras= com.id_compras;
-    this.compraReq.fecha_compra = com.fecha_compra; 
+    
+    this.estoyEditando = true;
+    this.compraReq.id_compras = com.id_compras;
+    this.compraReq.fecha_compra = com.fecha_compra;
     this.compraReq.fk_producto = com.fk_producto;
     this.compraReq.cantidad = com.cantidad;
-    this.compraReq.precio_costoUnitario= com.precio_costoUnitario;
-    this.compraReq.total_costoCompra= com.total_costoCompra;
-  
-    this.estoyEditando = true;
+    this.productoSeleccionado = this.productos.find(p => p.id_producto === com.fk_producto);
+    this.calcularTotal();
+    
   }
   salvarEdicion() {
-    this.httpClient.put(`http://localhost:3000/compras/${this.compraReq.id_compras}`, this.compraReq).subscribe(data => {
-      console.log("Compra actualizada:", data);
-      this.getCompras(); // Actualizar lista de productos después de la edición
-      this.estoyEditando = false; // Salir del modo de edición
-    }, error => {
-      console.error('Error al actualizar el producto:', error);
-    
-    });
+    this.comprasService.editarCompra(this.compraReq).subscribe(
+      data => {
+        console.log('Compra actualizada:', data);
+        this.getCompras(); // Actualizar lista de compras después de la edición
+        this.resetForm(); // Limpiar formulario después de la edición exitosa
+        this.estoyEditando = false; // Salir del modo de edición
+      },
+      error => {
+        console.error('Error al actualizar la compra:', error);
+      }
+    );
   }
   
  cancelarEdicion() {
@@ -150,7 +161,10 @@ export class ComprasComponent implements OnInit {
   }
 
 
-
+  cal(){
+   
+    this.compraReq.fk_producto = this.productoSeleccionado.id_producto;
+  }
   
   }
   

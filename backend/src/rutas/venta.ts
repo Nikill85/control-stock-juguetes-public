@@ -23,10 +23,22 @@ router.get('/', async (req: Request, res: Response) => {
     }
 });
 
+// router.post('/', async (req: Request, res: Response) => {
+//     const {fecha_venta,cantidad,total_venta } = req.body;
+//     try {
+//         await conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta,cantidad,total_venta) VALUES (?,?,?)', [fecha_venta,cantidad,total_venta]);
+//         res.status(201).send({ message: 'Venta creada correctamente' });
+//     } catch (error) {
+//         console.error('Error al crear la venta:', error);
+//         res.status(500).send({ error: 'Error al crear la venta' });
+//     }
+
+   
+// });
 router.post('/', async (req: Request, res: Response) => {
-    const {fecha_venta,cantidad,total_venta } = req.body;
+    const { fecha_venta, fk_producto, cantidad, total_venta } = req.body;
     try {
-        await conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta,cantidad,total_venta) VALUES (?,?,?)', [fecha_venta,cantidad,total_venta]);
+        await conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta, fk_producto, cantidad, total_venta) VALUES (?, ?, ?,?)', [fecha_venta, fk_producto, cantidad, total_venta]);
         res.status(201).send({ message: 'Venta creada correctamente' });
     } catch (error) {
         console.error('Error al crear la venta:', error);
@@ -36,11 +48,20 @@ router.post('/', async (req: Request, res: Response) => {
    
 });
 
-router.put('/', async (req: Request, res: Response) => {
-    const { id, fecha_venta,cantidad,total_venta } = req.body; // Acceder al id desde el cuerpo de la solicitud
+
+router.put('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const {  fecha_venta,cantidad,total_venta} = req.body;
+
+    // Asegurarse de que la fecha sea en formato 'YYYY-MM-DD'
+    const fechaCompraFormatted = new Date(fecha_venta).toISOString().split('T')[0];
+
     try {
-        await conexion.execute('UPDATE proyecto_final.ventas SET fecha_venta = ?, cantidad = ?, total_venta = ? WHERE id_ventas = ?', [fecha_venta,cantidad,total_venta,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
-        res.send({ message: 'Descripcion actualizado correctamente' });
+        await conexion.execute(
+            'UPDATE proyecto_final.ventas SET fecha_venta = ?, cantidad = ?,  total_venta = ? WHERE id_ventas = ?',
+            [fechaCompraFormatted, cantidad, total_venta, id]
+        );
+        res.send({ message: 'venta actualizada correctamente' });
     } catch (error) {
         console.error('Error al actualizar la venta:', error);
         res.status(500).send({ error: 'Error al actualizar la venta' });
@@ -48,8 +69,18 @@ router.put('/', async (req: Request, res: Response) => {
 });
 
 
-router.delete('/', async (req: Request, res: Response) => {
-    const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+// router.delete('/', async (req: Request, res: Response) => {
+//     const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
+//     try {
+//         await conexion.execute('DELETE FROM proyecto_final.ventas WHERE id_ventas = ?', [id]);
+//         res.send({ message: 'Venta eliminada correctamente' });
+//     } catch (error) {
+//         console.error('Error al eliminar la venta:', error);
+//         res.status(500).send({ error: 'Error al eliminar la venta' });
+//     }
+// });
+router.delete('/:id', async (req: Request, res: Response) => {
+    const id = req.params.id; 
     try {
         await conexion.execute('DELETE FROM proyecto_final.ventas WHERE id_ventas = ?', [id]);
         res.send({ message: 'Venta eliminada correctamente' });
@@ -57,6 +88,7 @@ router.delete('/', async (req: Request, res: Response) => {
         console.error('Error al eliminar la venta:', error);
         res.status(500).send({ error: 'Error al eliminar la venta' });
     }
+
 });
 
 
