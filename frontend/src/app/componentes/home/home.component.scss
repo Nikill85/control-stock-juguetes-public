@@ -1,61 +1,61 @@
 /* Estilos para el menú */
 .menu {
-    background-color: #1a1a1a; /* Fondo casi negro */
-    padding: 20px; /* Espaciado interno */
-    display: flex;
-    justify-content: center; /* Centra los elementos horizontalmente */
-    align-items: center;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada para efecto de elevación */
-    margin-top: -10px; /* Ajuste de margen superior */
-  }
-  
-  /* Estilos para los botones del menú */
-  .items {
-    display: flex; /* Establece los botones en línea */
-    gap: 30px; /* Espacio entre los botones */
-  }
-  
-  .btn {
-    cursor: pointer;
-    color: white; /* Letras blancas para mayor contraste */
-    text-transform: uppercase;
-    font-weight: bold; /* Letras más gruesas */
-    background-color: #47BC9B; /* Azul claro para los botones */
-    border-radius: 30px; /* Bordes redondeados para un aspecto más suave */
-    padding: 10px 30px;
-    border: none; /* Quita el borde para un aspecto más limpio */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave al pasar el ratón */
-  }
-  
-  .btn:hover {
-    background-color: darken(#47BC9B, 10%); /* Oscurecer el color de fondo al pasar el ratón */
-  }
+  background: linear-gradient(to right, #0d031a, #957ed4, #383538);
+  padding: 20px; /* Espaciado interno */
+  display: flex;
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada para efecto de elevación */
+  margin-top: -10px; /* Ajuste de margen superior */
+}
+
+/* Estilos para los botones del menú */
+.items {
+  display: flex; /* Establece los botones en línea */
+  gap: 30px; /* Espacio entre los botones */
+}
+
+.btn {
+  cursor: pointer;
+  color: white; /* Letras blancas para mayor contraste */
+  text-transform: uppercase;
+  font-weight: bold; /* Letras más gruesas */
+  background-color: transparent; /* Fondo transparente para mostrar el degradado */
+  border-radius: 30px; /* Bordes redondeados para un aspecto más suave */
+  padding: 10px 30px;
+  border: 2px solid white; /* Borde blanco sólido */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+.btn:hover {
+  background-color: rgba(207, 85, 152, 0.363); /* Fondo blanco translúcido al pasar el ratón */
+}
 
 /* Estilo para el botón de Log out */
 .logout-button {
   cursor: pointer;
-  color: rgb(10, 6, 6); /* Letras blancas para mayor contraste */
+  color: white; /* Letras blancas para mayor contraste */
   text-transform: uppercase;
   font-weight: bold; /* Letras más gruesas */
-  background-color: #ece90c; 
+  background-color: transparent; /* Fondo transparente para mostrar el degradado */
   border-radius: 10px; /* Bordes redondeados para un aspecto más suave */
   padding: 5px 15px;
-  border: none; /* Quita el borde para un aspecto más limpio */
+  border: 2px solid white; /* Borde blanco sólido */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
   transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave al pasar el ratón */
-  margin-top: 5px;/* Cambiar el margen inferior */
-  margin-left: 20px; /* Agrega espacio a la izquierda del botón */
+  margin-top: 5px; /* Cambiar el margen inferior */
+  margin-left: 20px; /* Agregar espacio a la izquierda del botón */
 }
 
 .logout-button:hover {
-  background-color: #e74c3c; /* Rojo más claro al pasar el ratón */
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo blanco translúcido al pasar el ratón */
 }
+
 .welcome-message {
-  background-color: #47BC9B; /* Color de fondo */
+  background: linear-gradient(to right, #790733a2, #957ed4,  #790733a2);
   color: white; /* Color del texto */
-  padding: 10px 20px; /* Espaciado interno */
- 
+  padding: 20px 20px; /* Espaciado interno */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
   margin-top: -10px; /* Ajuste de margen superior */
   font-weight: bold; /* Letra en negrita */

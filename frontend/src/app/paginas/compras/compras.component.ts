@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'src/app/servicios/message.service';
 import { Compra } from 'src/app/clases/compra.model';
@@ -16,40 +16,50 @@ import { ProductoService } from 'src/app/servicios/producto.service';
   styleUrls: ['./compras.component.scss']
 })
 export class ComprasComponent implements OnInit {
+  compraReq: CompraRequest = new CompraRequest();
   compras: Compra[];
   productos: Producto[];
   productoSelected: Producto = new Producto();
-  existeProducto: boolean = false; // Inicializado en false por defecto
-  compraReq: CompraRequest = new CompraRequest();
+  existeProducto: boolean = false;
   compra: Compra = new Compra();
   copiaCompra: Compra = new Compra();
   estoyEditando: boolean;
   editarOnuevaCompra: Compra = new Compra();
   Compra: Compra[] = new Array<Compra>();
-
+  precioProductoEncontrado: number;
   productoSeleccionado: Producto;
   totalCompra: number;
 
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService,private comprasService: ComprasService, private productoService: ProductoService) {}
+  constructor(private httpClient: HttpClient, private messageService: MessageService, private comprasService: ComprasService, private productoService: ProductoService) { }
 
   ngOnInit(): void {
     this.getCompras();
     this.getProductos();
   }
 
+
+
+  cal(evn) {
+
+    const ProductoEncontrado = this.productos.find(p => p.id_producto === parseInt(evn.target.value))
+    // this.precioProductoEncontrado = ProductoEncontrado.precio
+    console.log("algo2", this.precioProductoEncontrado)
+    console.log(ProductoEncontrado)
+    console.log(this.compraReq.fk_producto)
+
+  }
   getCompras() {
     this.httpClient.get<Compra[]>('http://localhost:3000/compras').subscribe(
-      (compras: Compra[]) => {
-        console.log(compras);
-        this.compras = compras;
+      (c: Compra[]) => {
+        console.log(c);
+        this.compras = c;
       },
       (error) => {
         console.error('Error al obtener las compras:', error);
       }
     );
   }
-
   getProductos() {
     this.httpClient.get<Producto[]>('http://localhost:3000/producto').subscribe(
       (productos: Producto[]) => {
@@ -61,49 +71,22 @@ export class ComprasComponent implements OnInit {
       }
     );
   }
-  
-
   crearCompra() {
-    // Asegurarse de que los campos de compraReq no sean undefined
-    if (!this.compraReq.fecha_compra) {
-      this.compraReq.fecha_compra = null; // Si fecha_compra es undefined, establecerla como null
-    }
-  
+
+
+    // Enviar solicitud HTTP
     this.httpClient.post<any>('http://localhost:3000/compras', this.compraReq).subscribe(
       (response) => {
         console.log(response);
-        this.getCompras(); // Actualizar la lista de compras después de crear una nueva compra
-        this.resetForm(); // Limpiar el formulario después de la creación exitosa
+        this.getCompras();
+        this.resetForm();
       },
       (error) => {
         console.error('Error al crear la compra:', error);
+        // Manejar el error según sea necesario
       }
     );
   }
-
-  // Método para limpiar el formulario y reiniciar los valores
-  resetForm() {
-    this.compraReq = new CompraRequest();
-    this.productoSelected = new Producto();
-    this.existeProducto = false;
-  }
-
-  // Método para calcular el total de la compra basado en cantidad y precio unitario
-  calcularTotal() {  if (this.productoSeleccionado && this.compraReq.cantidad) {
-    this.compraReq.total_costoCompra = this.productoSeleccionado.precio * this.compraReq.cantidad;
-    this.totalCompra = this.compraReq.total_costoCompra; // Actualizar totalCompra para mostrar en el formulario
-  } else {
-    this.compraReq.total_costoCompra = null;
-    this.totalCompra = null;
-  }
- 
-  }
-
-
-  // getProductoDescripcion(idProducto: number): string {
-  //   const Producto = this.productos.find(p => p.id_producto === idProducto);
-  //   return Producto ? Producto.descripcion : '';
-  // }
   getProductoDescripcion(idProducto: number): string {
     if (this.productos && this.productos.length > 0) {
       const producto = this.productos.find(p => p.id_producto === idProducto);
@@ -112,15 +95,16 @@ export class ComprasComponent implements OnInit {
       return 'Descripción no disponible';
     }
   }
+ 
   eliminarCompra(compra: Compra) {
     this.messageService.confirmMessage(``, `Seguro que desea eliminar al tipo de producto: ${compra.id_compras}`, `Eliminar`, `warning`)
       .then(r => {
         if (r.isConfirmed) {
-          this.eliminarCo(compra.id_compras); 
+          this.eliminarCo(compra.id_compras);
         }
       });
   }
-  
+
   eliminarCo(id: number) {
     this.comprasService.eliminarCompra(id)
       .subscribe(respuesta => {
@@ -128,45 +112,65 @@ export class ComprasComponent implements OnInit {
         this.getCompras();
       });
 
-      
+
   }
+  calcularTotal(evn) {
+    if (this.compraReq.fk_producto) {
+      const ProductoEncontrado = this.productos.find(p => p.id_producto === this.compraReq.fk_producto)
+      this.compraReq.total_costoCompra = evn.target.value * ProductoEncontrado.precio
+      this.totalCompra = this.compraReq.total_costoCompra;
+    } else {
+      console.log("no existee")
+    }
+
+    console.log("algoooo", evn.target.value)
+    console.log(this.compraReq.total_costoCompra)
+  }
+
   editarCompra(com: Compra) {
-    
+
     this.estoyEditando = true;
     this.compraReq.id_compras = com.id_compras;
     this.compraReq.fecha_compra = com.fecha_compra;
     this.compraReq.fk_producto = com.fk_producto;
     this.compraReq.cantidad = com.cantidad;
     this.productoSeleccionado = this.productos.find(p => p.id_producto === com.fk_producto);
-    this.calcularTotal();
-    
+    //  this.calcularTotal(com);
+
   }
   salvarEdicion() {
     this.comprasService.editarCompra(this.compraReq).subscribe(
-      data => {
+      (data: any) => {
         console.log('Compra actualizada:', data);
         this.getCompras(); // Actualizar lista de compras después de la edición
         this.resetForm(); // Limpiar formulario después de la edición exitosa
         this.estoyEditando = false; // Salir del modo de edición
       },
-      error => {
+      (error: HttpErrorResponse) => {
         console.error('Error al actualizar la compra:', error);
+        if (error.status === 500) {
+          // Aquí puedes manejar el error específico del servidor, si es necesario
+          // Puedes mostrar un mensaje al usuario o realizar alguna acción de manejo de errores
+          console.error('Error interno en el servidor:', error.error);
+        }
       }
     );
   }
-  
- cancelarEdicion() {
+
+  resetForm() {
+    this.compraReq = new CompraRequest();
+    this.productoSelected = new Producto();
+    this.totalCompra = null;
+  }
+  cancelarEdicion() {
     this.compra = new Compra();
+    this.resetForm();
     this.estoyEditando = false;
   }
 
 
-  cal(){
-   
-    this.compraReq.fk_producto = this.productoSeleccionado.id_producto;
-  }
-  
-  }
-  
-  
+
+}
+
+
 

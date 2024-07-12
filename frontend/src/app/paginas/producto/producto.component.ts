@@ -16,6 +16,7 @@ export class ProductoComponent implements OnInit {
   tipoProductos: TipoProducto[];
   producto: Producto = new Producto();
   esEdit: boolean; 
+  TipoproductoSelected: TipoProducto = new TipoProducto();
   constructor(
     private httpClient: HttpClient,
     private tipoProductoService: TipoProductoService,
@@ -65,6 +66,7 @@ export class ProductoComponent implements OnInit {
     this.httpClient.post('http://localhost:3000/producto', productoConTipo).subscribe(data => {
       console.log("insert prod", data);
       this.getProductos();
+      this.resetForm()
     });
   }
   
@@ -74,6 +76,7 @@ export class ProductoComponent implements OnInit {
     this.httpClient.put(`http://localhost:3000/producto/${this.producto.id_producto}`, this.producto).subscribe(data => {
       console.log("Producto actualizado:", data);
       this.getProductos(); 
+      this.resetForm()
       this.esEdit = false; 
     }, error => {
       console.error('Error al actualizar el producto:', error);
@@ -106,6 +109,10 @@ export class ProductoComponent implements OnInit {
         this.getProductos();
       });
   }
-
+  resetForm() {
+    this.producto = new Producto();
+    this.TipoproductoSelected=  new TipoProducto();
+    
+  }
 
 }

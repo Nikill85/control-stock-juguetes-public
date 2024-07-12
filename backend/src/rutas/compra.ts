@@ -24,17 +24,16 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 
-  router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: Request, res: Response) => {
     const { fecha_compra, fk_producto, cantidad, total_costoCompra } = req.body;
+
     try {
         await conexion.execute('INSERT INTO proyecto_final.compras (fecha_compra, fk_producto, cantidad, total_costoCompra) VALUES (?, ?, ?,?)', [fecha_compra, fk_producto, cantidad, total_costoCompra]);
-        res.status(201).send({ message: 'Compra creada correctamente' });
+        res.status(201).send({ message: 'compra creada correctamente' });
     } catch (error) {
         console.error('Error al crear la compra:', error);
         res.status(500).send({ error: 'Error al crear la compra' });
     }
-
-   
 });
 
 // router.put('/:id', async (req: Request, res: Response) => {

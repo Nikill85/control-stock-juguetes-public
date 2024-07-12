@@ -1,5 +1,5 @@
 <app-home></app-home>
-<div class="container-fluid" style="color: white; height: 100vh;">
+<div class="container-fluid" style="color: white; ">
     <div class="row">
         <div class="col-12" style="display: flex; align-items: center;">
             <img src="assets/tipoProducto.png" style="width: 60px; max-height: 60px; margin-right: 10px;">
@@ -10,7 +10,7 @@
                 <label for="" class="label_input">Tipo de producto </label> <br>
                 <input type="text" class="input_new" [(ngModel)]="editarOnuevoTipoProducto.descripcion">    
             </div>
-            <div class="col-5" style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div class="col-3" style="display: flex; flex-direction: row; justify-content: space-between;">
                 <button *ngIf="!estoyEditando" pButton type="button" (click)="agregarTipo()" label="Nuevo"  class="p-button-success btn_new"></button>
                 <button *ngIf="estoyEditando" pButton type="button" (click)="salvarEdicion()" label="Guardar"  class="p-button-success btn_new"></button>
                 <button *ngIf="estoyEditando" pButton type="button" (click)="cancelarEdicion()" label="Cancelar" class="p-button-danger"></button>

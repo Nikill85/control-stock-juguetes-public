@@ -9,10 +9,16 @@
     </div>
     
     <div class="row" >
+      <div class="col-2">
+        <div class="input_container">
+          <label class="label_input">Fecha de Compra</label>
+          <input type="date" class="input_new" [(ngModel)]="compraReq.fecha_compra">
+        </div>
+      </div>
       <div class="col-3">
         <div class="input_container">
           <label class="label_input">Producto</label>
-          <select class="input_new" [(ngModel)]="compraReq.fk_producto" (change)="cal()">
+          <select class="input_new" [(ngModel)]="compraReq.fk_producto" (input)="cal($event)">
             <option *ngFor="let p of productos" [ngValue]="p.id_producto">{{ p.descripcion }}</option>
             
           </select>
@@ -21,16 +27,11 @@
       <div class="col-2">
         <div class="input_container">
           <label class="label_input">Cantidad</label>
-          <input type="number" class="input_new" [(ngModel)]="compraReq.cantidad" (input)="calcularTotal()">
+          <input type="number" class="input_new" [(ngModel)]="compraReq.cantidad" (input)="calcularTotal($event)">
         </div>
       </div>
     
-      <div class="col-2">
-        <div class="input_container">
-          <label class="label_input">Fecha de Compra</label>
-          <input type="date" class="input_new" [(ngModel)]="compraReq.fecha_compra">
-        </div>
-      </div>
+      
       <div class="col-2">
         <div class="input_container">
           <label class="label_input">Total Compra</label>
@@ -80,7 +81,7 @@
                 <td>{{ c.fecha_compra | date: 'dd/MM/yy' }}</td>
                 <td>{{getProductoDescripcion(c.fk_producto)}}</td>
                 <td>{{ c.cantidad }}</td>
-             
+               
                 <td>{{ c.total_costoCompra | currency }}</td>
                 <td style="text-align: center;">
                   <i class="pi pi-pencil icono_edit" (click)="editarCompra(c)"></i>

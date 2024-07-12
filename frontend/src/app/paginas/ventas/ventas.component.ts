@@ -190,6 +190,7 @@ export class VentasComponent implements OnInit {
   
  cancelarEdicion() {
     this.ven = new Venta();
+    this.resetForm()
     this.estoyEditando = false;
   }
 }

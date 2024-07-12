@@ -26,4 +26,7 @@ export class ProductoService {
   getPrecio():number{
     return this.producto.precio;
   }
+  actualizarStock(idProducto: number, cantidad: number) {
+    return this.httpClient.put(`${this.url}/${idProducto}/stock`, { cantidad });
+  }
 }

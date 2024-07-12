@@ -1,6 +1,8 @@
 .container-fluid {
   padding: 20px;
-  background-color: #1a1a1a; /* Fondo casi negro */
+  background: linear-gradient(to right, #0d031a, #383538);
+  backdrop-filter: blur(10px) brightness(90%) contrast(120%);
+  color: white;
 }
 
 h4 {
@@ -10,14 +12,22 @@ h4 {
 }
 
 .btn_new {
-  background-color: #3498db; /* Azul */
-  box-shadow: 0px 4px 8px rgba(52, 152, 219, 0.3);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  color: white; /* Color de texto blanco */
+  text-transform: uppercase;
+  font-weight: bold; /* Letra en negrita */
+  background: linear-gradient(to right, #790733a2, #957ed4,  #790733a2); /* Degradado de colores */
+  border: none; /* Quitamos el borde para un aspecto más limpio */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 12px 24px; /* Ajustamos el espaciado interno para hacer el botón más pequeño */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  margin-top: 10px; /* Añadimos margen superior para separarlo del título */
 }
 
 .btn_new:hover {
-  background-color: #2980b9; /* Azul un poco más oscuro al pasar el ratón */
-  box-shadow: 0px 6px 12px rgba(41, 128, 185, 0.5);
+  background: linear-gradient(to right, #957ed4, #790733a2,  #957ed4); /* Cambio de degradado al pasar el ratón */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada al pasar el ratón */
 }
 
 .input_new {
@@ -30,45 +40,44 @@ h4 {
   box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra interna para efecto de relieve */
 }
 
+ /* Estilos para la tabla */
+ #customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #f9f9f9; /* Fondo gris muy claro */
+  color: #333; /* Color de texto oscuro */
+  border: 1px solid #ddd; /* Borde gris claro */
+}
 
-        /* Estilos para la tabla */
-        #customers {
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            background-color: #34495e; /* Color de fondo normal de la tabla */
-            color: white;
-        }
+/* Estilo para los encabezados de la tabla */
+#customers th {
+  padding: 12px; /* Espaciado interno */
+  text-align: left; /* Alineación del texto a la izquierda */
+  background: linear-gradient(to right, #790733a2, #957ed4,  #790733a2);
+  color: white; /* Color de texto blanco */
+  font-weight: bold; /* Negrita en encabezados */
+  border: 1px solid #ddd; /* Borde gris claro */
+}
+
+/* Estilo para las celdas de la tabla */
+#customers td {
+  padding: 12px; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde gris claro */
+}
+
+/* Estilo para filas pares de la tabla */
+#customers tr:nth-child(even) {
+  background-color: #ffffff; /* Fondo blanco para filas pares */
+}
+
+/* Cambiar color de fondo al pasar el mouse */
+#customers tr:hover {
+  background-color: #ca09531f; /* Cambio de color al pasar el mouse */
+}
+
         
-        /* Cambiar color de fondo al pasar el mouse */
-        #customers:hover {
-            background-color: #34495e; /* Mantener el mismo color de fondo al pasar el mouse */
-        }
-        
-        #customers td,
-        #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-        
-        #customers tr:nth-child(even) {
-            background-color: #2c3e50; /* Color de fondo para filas pares */
-        }
-        
-        #customers tr:hover {
-            background-color: #2c3e50; /* Cambiar el color de fondo al pasar el mouse */
-        }
-        
-        #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color:#808af5; /* Cambiado a un tono de violeta más oscuro */
-            color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.925), 0 1px 3px rgba(0, 0, 0, 0.08); /* Añadido efecto de sombra */
-            border-top: 1px solid rgba(255, 255, 255, 0.678); /* Añadido borde superior */
-            border-bottom: 1px solid rgba(0, 0, 0, 0.685); /* Añadido borde inferior */
-        }
+ 
  
 .icono_edit,
 .icono_trash {

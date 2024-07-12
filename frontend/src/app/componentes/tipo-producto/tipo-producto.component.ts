@@ -35,7 +35,13 @@ export class TipoProductoComponent implements OnInit {
       .subscribe(respuesta => {
         console.log(respuesta);
         this.obtenerTiposDeProducto();
+        this.resetForm(); 
       });
+  }
+  resetForm() {
+    this.editarOnuevoTipoProducto =  new TipoProducto();
+
+    
   }
 
   // eliminarTipo(tipoProd: TipoProducto) {
@@ -59,6 +65,7 @@ export class TipoProductoComponent implements OnInit {
       .subscribe(respuesta => {
         console.log(respuesta);
         this.obtenerTiposDeProducto();
+        this.resetForm(); 
       });
   }
 
@@ -77,12 +84,13 @@ export class TipoProductoComponent implements OnInit {
     this.tipoProductoService.editarTipoProducto(this.editarOnuevoTipoProducto)
       .subscribe(respuesta => {
         console.log(respuesta);
-        
+        this.resetForm(); 
       } );
     
   }
   cancelarEdicion() {
     this.estoyEditando = false;
     this.editarOnuevoTipoProducto = { ...this.copiaTipoProducto };
+    this.resetForm(); 
   }
 }

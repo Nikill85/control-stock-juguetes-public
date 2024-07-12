@@ -28,6 +28,8 @@ import { VentasComponent } from './paginas/ventas/ventas.component';
 import { ProveedoresComponent } from './paginas/proveedores/proveedores.component';
 import { LoguinComponent } from './componentes/loguin/loguin.component';
 import { HomeComponent } from './componentes/home/home.component';
+import { ChartModule } from 'primeng/chart';
+
 
 @NgModule(
   {
@@ -60,7 +62,11 @@ import { HomeComponent } from './componentes/home/home.component';
       TableModule,
       HttpClientModule,
       ToggleButtonModule,
-      HttpClientModule
+      HttpClientModule,
+      ChartModule
+   
+     
+      
     ],
     providers: [],
     bootstrap: [AppComponent]

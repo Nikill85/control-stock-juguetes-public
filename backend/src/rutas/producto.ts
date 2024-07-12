@@ -37,16 +37,6 @@ router.post('/', async (req: Request, res: Response) => {
    
 });
 
-// router.put('/', async (req: Request, res: Response) => {
-//     const { id, descripcion, precio } = req.body; // Acceder al id desde el cuerpo de la solicitud
-//     try {
-//         await conexion.execute('UPDATE proyecto_final.productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
-//         res.send({ message: 'Producto actualizado correctamente' });
-//     } catch (error) {
-//         console.error('Error al actualizar el proveedor:', error);
-//         res.status(500).send({ error: 'Error al actualizar el producto' });
-//     }
-// });
 router.put('/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     const { descripcion, precio } = req.body;
