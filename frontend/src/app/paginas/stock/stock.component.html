@@ -1,5 +1,6 @@
-<!-- stock.component.html -->
 
+<div class="component-container">
+  <!-- Contenido del componente -->
 <app-home></app-home>
 <div class="container-fluid" style="color: white;">
   <div class="row">
@@ -11,8 +12,8 @@
 
   <div class="row mt-4">
     <div class="col-12">
-      <h3>Stock de Productos</h3>
-      <button pButton (click)="mostrarEstadisticas()" class="p-button-success btn_new">Mostrar Estadísticas</button>
+      <h3>Stock de Productos <br><button pButton (click)="mostrarEstadisticas()" class="btn_new">Mostrar Estadísticas</button></h3>
+      
       <!-- Modal -->
       <div class="modal" [class.active]="mostrarModal">
         <div class="modal-content">
@@ -73,4 +74,5 @@
       </table>
     </div>
   </div>
+</div>
 </div>

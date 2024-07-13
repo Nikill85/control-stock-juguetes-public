@@ -19,7 +19,7 @@
     font-weight: bold; /* Letra en negrita */
     background: linear-gradient(to right, #790733a2, #957ed4,  #790733a2); /* Degradado de colores */
     border: none; /* Quitamos el borde para un aspecto más limpio */
-    border-radius: 30px; /* Bordes redondeados */
+    border-radius: 10px; /* Bordes redondeados */
     padding: 12px 24px; /* Ajustamos el espaciado interno para hacer el botón más pequeño */
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra suave */
     transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
@@ -156,4 +156,7 @@
   .modal.active {
     display: block; /* Mostrar el modal cuando tenga la clase 'active' */
   }
-  
+  .component-container {
+    width: 100%;
+    min-height: 400px; /* Ejemplo de tamaño fijo */
+}

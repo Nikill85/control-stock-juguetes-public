@@ -21,7 +21,7 @@
   text-transform: uppercase;
   font-weight: bold; /* Letras más gruesas */
   background-color: transparent; /* Fondo transparente para mostrar el degradado */
-  border-radius: 30px; /* Bordes redondeados para un aspecto más suave */
+  border-radius: 10px; /* Bordes redondeados para un aspecto más suave */
   padding: 10px 30px;
   border: 2px solid white; /* Borde blanco sólido */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
@@ -41,7 +41,7 @@
   background-color: transparent; /* Fondo transparente para mostrar el degradado */
   border-radius: 10px; /* Bordes redondeados para un aspecto más suave */
   padding: 5px 15px;
-  border: 2px solid white; /* Borde blanco sólido */
+  border: 2px solid rgb(204, 10, 204); /* Borde blanco sólido */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para los botones */
   transition: background-color 0.3s ease, transform 0.3s ease; /* Transición suave al pasar el ratón */
   margin-top: 5px; /* Cambiar el margen inferior */

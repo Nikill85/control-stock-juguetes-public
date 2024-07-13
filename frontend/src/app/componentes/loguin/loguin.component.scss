@@ -70,21 +70,22 @@ img{
 .formbox {
     background: rgba(255, 255, 255, 0.4);
     color: var(--primaryred);
-    flex-basis: 25%;
+    flex-basis: 35%; /* Aumenté el ancho del formbox al 35% */
     border-top: 8px solid var(--secondaryred);
     padding: 3% 5%;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra verticalmente el contenido */
-    align-items: center; /* Centra horizontalmente el contenido */
+    justify-content: center;
+    align-items: center;
 }
+
 .formbox form {
-   width: 100%; /* Ajusta el ancho del formulario al 100% del .formbox */
-    display: flex; /* Utiliza flexbox para alinear elementos */
-    flex-direction: column; /* Alinea los elementos en columna */
-    align-items: center; /* Centra horizontalmente los elementos */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formbox h3 {
@@ -125,12 +126,14 @@ img{
     font-family: inherit;
     font-size: 20px;
     font-weight: 500;
-    border-radius: 20px;
+    border-radius: 15px;
     border: none;
     padding: 0.5em 1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    
+    width: calc(80% - 10px); /* Ajusté el ancho del botón para que sea igual al input */
+    max-width: 100%;
+    margin-top: 10px; /* Separación superior del botón */
 }
 
 .cssbuttons-io-button:hover {

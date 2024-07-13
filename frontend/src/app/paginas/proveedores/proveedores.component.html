@@ -34,7 +34,7 @@
             </div>
             <div class="col-4">
                 <div *ngIf="!esEdit">
-                    <button pButton (click)="crearProveedor()" label="Crear" class="p-button-success btn_new"></button>
+                    <button pButton (click)="crearProveedor()" label="Crear" class="btn_new"></button>
                 </div>
                 <div *ngIf="esEdit" style="display:flex; flex-direction: row; justify-content: space-between;">
                     <button pButton (click)="actualizarProveedor()" label="Guardar" class="p-button-success btn_new"></button>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-12">
                 <div>
-                    <table id="customers" style="background-color: #34495e; color: white;"> <!-- Cambio de color de fondo de la tabla -->
+                    <table id="customers" > <!-- Cambio de color de fondo de la tabla -->
                         <thead>
                             <tr>
                                 <th>id</th>

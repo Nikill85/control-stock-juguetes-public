@@ -117,11 +117,11 @@ export class StockComponent implements OnInit {
   initializeBarChartData() {
     // Inicializa los datos y opciones del gráfico de barras (ventas mensuales)
     this.barChartData = {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio' ,'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       datasets: [
         {
           label: 'Ventas Mensuales',
-          data: [0, 0, 0, 0, 0, 0, 0], // Inicializa con valores en 0
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // Inicializa con valores en 0
           backgroundColor: '#FFCE56'
         }
       ]
@@ -135,7 +135,7 @@ export class StockComponent implements OnInit {
 
   updateBarChartData() {
     // Actualiza los datos del gráfico de barras (ventas mensuales) con las ventas reales
-    const monthlySales = [0, 0, 0, 0, 0, 0, 0]; // Inicializa con valores en 0 para cada mes
+    const monthlySales = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // Inicializa con valores en 0 para cada mes
     this.ventas.forEach(venta => {
       const monthIndex = new Date(venta.fecha_venta).getMonth(); // Obtiene el índice del mes
       monthlySales[monthIndex] += venta.cantidad; // Suma la cantidad de ventas al mes correspondiente

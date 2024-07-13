@@ -9,31 +9,20 @@
     
     <div class="formbox">
         <h3>Iniciar sesión.</h3>
-       <form>
-    <label for="">
-        Usuario
-    </label>
-   
-    <div class="input-icon">
-        <i class="pi pi-user" *ngIf="!usuario"></i>
-        <input type="text" placeholder="       Ingrese usuario" class="asd" [(ngModel)]="usuario" name="usuario" />
-    </div>
-
-    <label for="">
-        Contraseña
-    </label>
-    <div class="input-icon">
-        <i class="pi pi-lock"  *ngIf="!password"></i>
-        <input type="password" placeholder="       Ingrese contraseña" class="asd" [(ngModel)]="password" name="password" />
-    </div>
-
-    <div style="padding-left: 160px;">
-        <button (click)="verificarIngreso()" class="cssbuttons-io-button"> Ingresar
-            <div class="icon">
-                <!-- Aquí puedes agregar un ícono de PrimeNG para el botón si lo deseas -->
+        <form>
+            <label for="usuario">Usuario</label>
+            <div class="input-icon">
+                <i class="pi pi-user" *ngIf="!usuario"></i>
+                <input type="text" placeholder="      Ingrese usuario" class="asd" [(ngModel)]="usuario" name="usuario" id="usuario" />
             </div>
-        </button>
-    </div>
-</form>
+
+            <label for="password">Contraseña</label>
+            <div class="input-icon">
+                <i class="pi pi-lock" *ngIf="!password"></i>
+                <input type="password" placeholder="      Ingrese contraseña" class="asd" [(ngModel)]="password" name="password" id="password" />
+            </div>
+
+            <button (click)="verificarIngreso()" class="cssbuttons-io-button">Ingresar</button>
+        </form>
     </div>
 </div>
