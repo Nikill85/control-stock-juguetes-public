@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.ts",
-  "dev": "nodemon src/index.ts",
-  "build": "npm install && npm run build"
+    "dev": "nodemon src/index.ts",
+    "build": "npm i"
   },
   "keywords": [],
   "author": "",
