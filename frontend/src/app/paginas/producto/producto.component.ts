@@ -85,7 +85,7 @@ export class ProductoComponent implements OnInit {
   //     }
   //   );
   // }
-  actualizarProveedor() {
+  actualizarProducto() {
     this.esEdit = false;
     this.productoService.actualizarProducto(this.producto)
       .subscribe(respuesta => {
