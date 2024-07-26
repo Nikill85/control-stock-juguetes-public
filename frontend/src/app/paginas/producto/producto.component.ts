@@ -15,7 +15,7 @@ export class ProductoComponent implements OnInit {
   productos: Producto[];
   tipoProductos: TipoProducto[];
   producto: Producto = new Producto();
-  esEdit: boolean; 
+  esEdit: boolean = false; 
   TipoproductoSelected: TipoProducto = new TipoProducto();
   constructor(
     private httpClient: HttpClient,
@@ -81,7 +81,7 @@ export class ProductoComponent implements OnInit {
       console.error('Error al actualizar el producto:', error);
     });
   }
-  
+
   cancelarActualizar() {
     this.producto = new Producto();
     this.esEdit = false;
