@@ -71,20 +71,29 @@ export class ProductoComponent implements OnInit {
   }
   
   
-  actualizarProducto() {
-    console.log('Actualizando producto:', this.producto);
-  this.esEdit = false; 
-    this.productoService.actualizarProducto(this.producto).subscribe(
-      data => {
-        console.log("Producto actualizado:", data);
-        this.getProductos(); 
-     
+  // actualizarProducto() {
+  //   console.log('Actualizando producto:', this.producto);
+  // this.esEdit = false; 
+  //   this.productoService.actualizarProducto(this.producto).subscribe(
+  //     data => {
+  //       console.log("Producto actualizado:", data);
+  //       this.getProductos(); 
         
-      },
-      error => {
-        console.error('Error al actualizar el producto:', error);
-      }
-    );
+  //     },
+  //     error => {
+  //       console.error('Error al actualizar el producto:', error);
+  //     }
+  //   );
+  // }
+  actualizarProveedor() {
+    this.esEdit = false;
+    this.productoService.actualizarProducto(this.producto)
+      .subscribe(respuesta => {
+        console.log(respuesta);
+        this.getProductos();
+        this.resetForm();
+      });
+
   }
   
 
