@@ -22,16 +22,15 @@ var conexion = promise_1.default.createPool({
   port: 3306,
 });
 const router = express_1.default.Router();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', async (req, res) => {
     try {
-        const [rows, fields] = yield conexion.execute('SELECT * FROM proyecto_final.compras');
-        res.send(rows);
+      const [rows] = await conexion.query('SELECT * FROM compras');
+      res.send(rows);
+    } catch (error) {
+      console.error('Error al obtener las compras:', error);
+      res.status(500).send({ error: 'Error al obtener las compras' });
     }
-    catch (error) {
-        console.error('Error al obtener las compras:', error);
-        res.status(500).send({ error: 'Error al obtener las compras' });
-    }
-}));
+  });
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fecha_compra, fk_producto, cantidad, total_costoCompra } = req.body;
     try {
