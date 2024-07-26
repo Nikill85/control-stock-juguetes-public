@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "npm i",
-    "start": "node src/index.js",
+    "start": "node src/index.ts",
     "buildnuevo": "tsc"
   },
   "keywords": [],
