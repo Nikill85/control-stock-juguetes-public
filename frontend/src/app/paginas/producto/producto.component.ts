@@ -15,7 +15,7 @@ export class ProductoComponent implements OnInit {
   productos: Producto[];
   tipoProductos: TipoProducto[];
   producto: Producto = new Producto();
-  esEdit: boolean = false; 
+  esEdit: boolean; 
   TipoproductoSelected: TipoProducto = new TipoProducto();
   constructor(
     private httpClient: HttpClient,
