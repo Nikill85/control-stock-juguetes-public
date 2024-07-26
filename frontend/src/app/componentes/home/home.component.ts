@@ -20,6 +20,6 @@ export class HomeComponent {
   isAdminLoggedIn(): boolean {
     // Verifica si el usuario actual está conectado como administrador
     const user = this.loginService.getConectado();
-    return user.nombre_Usuario === 'admin' && user.conectado;
+    return user.nombre_Usuario === 'superAdmin85' && user.conectado;
   }
 }
