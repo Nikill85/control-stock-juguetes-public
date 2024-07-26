@@ -47,12 +47,12 @@ export class ProductoComponent implements OnInit {
   }
 
   editarProducto(producto: Producto): void {
+    
     this.producto.id_producto = producto.id_producto;
     this.producto.descripcion = producto.descripcion;
     this.producto.precio = producto.precio;
     this.producto.fk_tipoProducto = producto.fk_tipoProducto;
     this.esEdit = true;
-    console.log("Producto para editar:", this.producto); // Agregar un log para verificar el producto
   }
 
 
@@ -71,24 +71,12 @@ export class ProductoComponent implements OnInit {
   }
   
   
-
   actualizarProducto() {
-    if (!this.producto.id_producto) {
-      console.error('ID del producto no está definido');
-      return;
-    }
-  
-    const productoActualizado = {
-      descripcion: this.producto.descripcion,
-      precio: this.producto.precio,
-      fk_tipoProducto: this.producto.fk_tipoProducto
-    };
-  
-    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto/${this.producto.id_producto}`, productoActualizado).subscribe(data => {
+    this.productoService.actualizarProducto(this.producto).subscribe(data => {
       console.log("Producto actualizado:", data);
-      this.getProductos();
+      this.getProductos(); 
       this.resetForm();
-      this.esEdit = false;
+      this.esEdit = false; 
     }, error => {
       console.error('Error al actualizar el producto:', error);
     });

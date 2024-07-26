@@ -45,18 +45,18 @@ router.get('/', async (req, res) => {
     }
   });
   
-// Actualizar un producto
-router.put('/:id', async (req, res) => {
-  const id = req.params.id;
-  const { descripcion, precio } = req.body;
-  try {
-    await conexion.query('UPDATE productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]);
-    res.send({ message: 'Producto actualizado correctamente' });
-  } catch (error) {
-    console.error('Error al actualizar el producto:', error);
-    res.status(500).send({ error: 'Error al actualizar el producto' });
-  }
-});
+  // Actualizar un producto
+  router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const { descripcion, precio } = req.body;
+    try {
+      await conexion.query('UPDATE productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]);
+      res.send({ message: 'Producto actualizado correctamente' });
+    } catch (error) {
+      console.error('Error al actualizar el producto:', error);
+      res.status(500).send({ error: 'Error al actualizar el producto' });
+    }
+  });
   
   // Eliminar un producto usando el ID en el cuerpo de la solicitud
   router.delete('/', async (req, res) => {
