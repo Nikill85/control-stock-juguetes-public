@@ -61,7 +61,7 @@ export class ComprasComponent implements OnInit {
     );
   }
   getProductos() {
-    this.httpClient.get<Producto[]>('https://control-stock-juguetes-1.onrender.com/compras').subscribe(
+    this.httpClient.get<Producto[]>('https://control-stock-juguetes-1.onrender.com/producto').subscribe(
       (productos: Producto[]) => {
         console.log('PRODUCTOS:', productos);
         this.productos = productos;
@@ -90,7 +90,7 @@ export class ComprasComponent implements OnInit {
   getProductoDescripcion(idProducto: number): string {
     if (this.productos && this.productos.length > 0) {
       const producto = this.productos.find(p => p.id_producto === idProducto);
-      return producto ? producto.descripcion : '';
+      return producto ? producto.descripcion : 'Descripción no disponible';
     } else {
       return 'Descripción no disponible';
     }
