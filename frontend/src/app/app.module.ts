@@ -29,7 +29,7 @@ import { ProveedoresComponent } from './paginas/proveedores/proveedores.componen
 import { LoguinComponent } from './componentes/loguin/loguin.component';
 import { HomeComponent } from './componentes/home/home.component';
 import { ChartModule } from 'primeng/chart';
-
+import { MiServicioService } from './servicios/mi-servicio.service'; // Ajusta la ruta según sea necesario
 
 @NgModule(
   {
@@ -68,7 +68,7 @@ import { ChartModule } from 'primeng/chart';
      
       
     ],
-    providers: [],
+    providers: [MiServicioService],
     bootstrap: [AppComponent]
   }
 )
