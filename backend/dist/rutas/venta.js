@@ -15,77 +15,61 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const promise_1 = __importDefault(require("mysql2/promise"));
 var conexion = promise_1.default.createPool({
-    host: 'localhost',
+    host: 'sql10.freesqldatabase.com',
+    user: 'sql10722194',
+    password: 'En87q3H7Fd',
+    database: 'sql10722194',
     port: 3306,
-    user: 'root',
-    password: 'yduz2urogsgovg',
-    database: 'proyecto_final'
 });
 const router = express_1.default.Router();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+
+// Obtener todas las ventas
+router.get('/', async (req, res) => {
     try {
-        const [rows, fields] = yield conexion.execute('SELECT * FROM proyecto_final.ventas');
-        res.send(rows);
+      const [rows] = await conexion.query('SELECT * FROM ventas'); // Ajusta el nombre de la tabla si es necesario
+      res.send(rows);
+    } catch (error) {
+      console.error('Error al obtener las ventas:', error);
+      res.status(500).send({ error: 'Error al obtener las ventas' });
     }
-    catch (error) {
-        console.error('Error al obtener las ventas:', error);
-        res.status(500).send({ error: 'Error al obtener las ventas' });
-    }
-}));
-// router.post('/', async (req: Request, res: Response) => {
-//     const {fecha_venta,cantidad,total_venta } = req.body;
-//     try {
-//         await conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta,cantidad,total_venta) VALUES (?,?,?)', [fecha_venta,cantidad,total_venta]);
-//         res.status(201).send({ message: 'Venta creada correctamente' });
-//     } catch (error) {
-//         console.error('Error al crear la venta:', error);
-//         res.status(500).send({ error: 'Error al crear la venta' });
-//     }
-// });
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+  
+  // Crear una nueva venta
+  router.post('/', async (req, res) => {
     const { fecha_venta, fk_producto, cantidad, total_venta } = req.body;
     try {
-        yield conexion.execute('INSERT INTO proyecto_final.ventas (fecha_venta, fk_producto, cantidad, total_venta) VALUES (?, ?, ?,?)', [fecha_venta, fk_producto, cantidad, total_venta]);
-        res.status(201).send({ message: 'Venta creada correctamente' });
+      await conexion.query('INSERT INTO ventas (fecha_venta, fk_producto, cantidad, total_venta) VALUES (?, ?, ?, ?)', [fecha_venta, fk_producto, cantidad, total_venta]);
+      res.status(201).send({ message: 'Venta creada correctamente' });
+    } catch (error) {
+      console.error('Error al crear la venta:', error);
+      res.status(500).send({ error: 'Error al crear la venta' });
     }
-    catch (error) {
-        console.error('Error al crear la venta:', error);
-        res.status(500).send({ error: 'Error al crear la venta' });
-    }
-}));
-router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+  
+  // Actualizar una venta existente
+  router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const { fecha_venta, cantidad, total_venta } = req.body;
     // Asegurarse de que la fecha sea en formato 'YYYY-MM-DD'
-    const fechaCompraFormatted = new Date(fecha_venta).toISOString().split('T')[0];
+    const fechaVentaFormatted = new Date(fecha_venta).toISOString().split('T')[0];
     try {
-        yield conexion.execute('UPDATE proyecto_final.ventas SET fecha_venta = ?, cantidad = ?,  total_venta = ? WHERE id_ventas = ?', [fechaCompraFormatted, cantidad, total_venta, id]);
-        res.send({ message: 'venta actualizada correctamente' });
+      await conexion.query('UPDATE ventas SET fecha_venta = ?, cantidad = ?, total_venta = ? WHERE id_ventas = ?', [fechaVentaFormatted, cantidad, total_venta, id]);
+      res.send({ message: 'Venta actualizada correctamente' });
+    } catch (error) {
+      console.error('Error al actualizar la venta:', error);
+      res.status(500).send({ error: 'Error al actualizar la venta' });
     }
-    catch (error) {
-        console.error('Error al actualizar la venta:', error);
-        res.status(500).send({ error: 'Error al actualizar la venta' });
-    }
-}));
-// router.delete('/', async (req: Request, res: Response) => {
-//     const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
-//     try {
-//         await conexion.execute('DELETE FROM proyecto_final.ventas WHERE id_ventas = ?', [id]);
-//         res.send({ message: 'Venta eliminada correctamente' });
-//     } catch (error) {
-//         console.error('Error al eliminar la venta:', error);
-//         res.status(500).send({ error: 'Error al eliminar la venta' });
-//     }
-// });
-router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+  
+  // Eliminar una venta existente
+  router.delete('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        yield conexion.execute('DELETE FROM proyecto_final.ventas WHERE id_ventas = ?', [id]);
-        res.send({ message: 'Venta eliminada correctamente' });
+      await conexion.query('DELETE FROM ventas WHERE id_ventas = ?', [id]);
+      res.send({ message: 'Venta eliminada correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar la venta:', error);
+      res.status(500).send({ error: 'Error al eliminar la venta' });
     }
-    catch (error) {
-        console.error('Error al eliminar la venta:', error);
-        res.status(500).send({ error: 'Error al eliminar la venta' });
-    }
-}));
+  });
 exports.default = router;
