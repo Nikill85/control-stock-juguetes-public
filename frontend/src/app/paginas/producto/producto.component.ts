@@ -73,16 +73,27 @@ export class ProductoComponent implements OnInit {
   
 
   actualizarProducto() {
-    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto/${this.producto.id_producto}`, this.producto).subscribe(data => {
+    if (!this.producto.id_producto) {
+      console.error('ID del producto no está definido');
+      return;
+    }
+  
+    const productoActualizado = {
+      descripcion: this.producto.descripcion,
+      precio: this.producto.precio,
+      fk_tipoProducto: this.producto.fk_tipoProducto
+    };
+  
+    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto/${this.producto.id_producto}`, productoActualizado).subscribe(data => {
       console.log("Producto actualizado:", data);
-      this.getProductos(); 
-      this.resetForm()
-      this.esEdit = false; 
+      this.getProductos();
+      this.resetForm();
+      this.esEdit = false;
     }, error => {
       console.error('Error al actualizar el producto:', error);
-    
     });
   }
+  
   cancelarActualizar() {
     this.producto = new Producto();
     this.esEdit = false;
