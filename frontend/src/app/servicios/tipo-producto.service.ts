@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TipoProducto } from '../clases/tipoProducto.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoProductoService {
-  url: string = 'http://localhost:3000/tipoProducto';
+  // url: string = 'http://localhost:3000/tipoProducto';
+  private url = `${environment.apiUrl}/tipoProducto`
   constructor(
     private httpClient: HttpClient
   ) { }
