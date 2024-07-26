@@ -78,7 +78,7 @@ export class ProductoComponent implements OnInit {
       data => {
         console.log("Producto actualizado:", data);
         this.getProductos(); 
-        this.resetForm();
+     
         
       },
       error => {
