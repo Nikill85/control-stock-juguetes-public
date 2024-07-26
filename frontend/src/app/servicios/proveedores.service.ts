@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ProveedoresService {
   // url = `http://localhost:3000/proveedor`;
-  private url = `${environment.apiUrl}/proveedores`; // Usa la URL del entorno
+  private url = `${environment.apiUrl}/proveedor`; // Usa la URL del entorno
   
   constructor(private httpClient: HttpClient) { }
 
