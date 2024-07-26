@@ -47,12 +47,12 @@ export class ProductoComponent implements OnInit {
   }
 
   editarProducto(producto: Producto): void {
-    
     this.producto.id_producto = producto.id_producto;
     this.producto.descripcion = producto.descripcion;
     this.producto.precio = producto.precio;
     this.producto.fk_tipoProducto = producto.fk_tipoProducto;
     this.esEdit = true;
+    console.log("Producto para editar:", this.producto); // Agregar un log para verificar el producto
   }
 
 
