@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ts": "ts-node index.ts",
-    "dev": "nodemon index.ts",
+    "dev": "npx nodemon src/index.ts",
     "build": "npm i"
   },
   "keywords": [],
