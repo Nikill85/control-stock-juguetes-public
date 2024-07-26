@@ -72,15 +72,21 @@ export class ProductoComponent implements OnInit {
   
   
   actualizarProducto() {
-    this.productoService.actualizarProducto(this.producto).subscribe(data => {
-      console.log("Producto actualizado:", data);
-      this.getProductos(); 
-      this.resetForm();
-      this.esEdit = false; 
-    }, error => {
-      console.error('Error al actualizar el producto:', error);
-    });
+    console.log('Actualizando producto:', this.producto);
+  
+    this.productoService.actualizarProducto(this.producto).subscribe(
+      data => {
+        console.log("Producto actualizado:", data);
+        this.getProductos(); 
+        this.resetForm();
+        this.esEdit = false; 
+      },
+      error => {
+        console.error('Error al actualizar el producto:', error);
+      }
+    );
   }
+  
 
   cancelarActualizar() {
     this.producto = new Producto();
