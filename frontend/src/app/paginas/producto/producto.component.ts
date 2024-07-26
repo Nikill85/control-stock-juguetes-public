@@ -30,7 +30,7 @@ export class ProductoComponent implements OnInit {
   }
 
   getProductos() {
-    this.httpClient.get('http://localhost:3000/producto').subscribe((productos: Producto[]) => {
+    this.httpClient.get('https://control-stock-juguetes-1.onrender.com/producto').subscribe((productos: Producto[]) => {
       console.log("PRODUCTOS: ", productos);
       
       this.productos = productos;
@@ -63,7 +63,7 @@ export class ProductoComponent implements OnInit {
       fk_tipoProducto: idTipoProducto
     };
   
-    this.httpClient.post('http://localhost:3000/producto', productoConTipo).subscribe(data => {
+    this.httpClient.post('https://control-stock-juguetes-1.onrender.com/producto', productoConTipo).subscribe(data => {
       console.log("insert prod", data);
       this.getProductos();
       this.resetForm()
@@ -73,7 +73,7 @@ export class ProductoComponent implements OnInit {
   
 
   actualizarProducto() {
-    this.httpClient.put(`http://localhost:3000/producto/${this.producto.id_producto}`, this.producto).subscribe(data => {
+    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto${this.producto.id_producto}`, this.producto).subscribe(data => {
       console.log("Producto actualizado:", data);
       this.getProductos(); 
       this.resetForm()
