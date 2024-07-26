@@ -31,51 +31,42 @@ router.get('/', async (req, res) => {
       res.status(500).send({ error: 'Error al obtener las compras' });
     }
   });
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// Crear una nueva compra
+router.post('/', async (req, res) => {
     const { fecha_compra, fk_producto, cantidad, total_costoCompra } = req.body;
     try {
-        yield conexion.execute('INSERT INTO proyecto_final.compras (fecha_compra, fk_producto, cantidad, total_costoCompra) VALUES (?, ?, ?,?)', [fecha_compra, fk_producto, cantidad, total_costoCompra]);
-        res.status(201).send({ message: 'compra creada correctamente' });
+      await conexion.query('INSERT INTO compras (fecha_compra, fk_producto, cantidad, total_costoCompra) VALUES (?, ?, ?, ?)', [fecha_compra, fk_producto, cantidad, total_costoCompra]);
+      res.status(201).send({ message: 'Compra creada correctamente' });
+    } catch (error) {
+      console.error('Error al crear la compra:', error);
+      res.status(500).send({ error: 'Error al crear la compra' });
     }
-    catch (error) {
-        console.error('Error al crear la compra:', error);
-        res.status(500).send({ error: 'Error al crear la compra' });
-    }
-}));
-// router.put('/:id', async (req: Request, res: Response) => {
-//     const id = req.params.id;
-//     const {  fecha_compra, cantidad,precio_costoUnitario, total_costoCompra } = req.body; // Acceder al id desde el cuerpo de la solicitud
-//     try {
-//         await conexion.execute('UPDATE proyecto_final.compras SET fecha_compra = ?, cantidad = ?, precio_costoUnitario = ?, total_costoCompra = ? WHERE id_compras = ?', [fecha_compra, cantidad,precio_costoUnitario, total_costoCompra,id]); // Asegúrate de utilizar el nombre correcto de la columna id_producto en tu tabla
-//         res.send({ message: 'Compra actualizada correctamente' });
-//     } catch (error) {
-//         console.error('Error al actualizar la compra:', error);
-//         res.status(500).send({ error: 'Error al actualizar la compra' });
-//     }
-// });
-router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+  
+  // Actualizar una compra
+  router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const { fecha_compra, cantidad, total_costoCompra } = req.body;
-    // Asegurarse de que la fecha sea en formato 'YYYY-MM-DD'
-    const fechaCompraFormatted = new Date(fecha_compra).toISOString().split('T')[0];
+    const fechaCompraFormatted = new Date(fecha_compra).toISOString().split('T')[0]; // Asegurarse de que la fecha sea en formato 'YYYY-MM-DD'
     try {
-        yield conexion.execute('UPDATE proyecto_final.compras SET fecha_compra = ?, cantidad = ?,  total_costoCompra = ? WHERE id_compras = ?', [fechaCompraFormatted, cantidad, total_costoCompra, id]);
-        res.send({ message: 'Compra actualizada correctamente' });
+      await conexion.query('UPDATE compras SET fecha_compra = ?, cantidad = ?, total_costoCompra = ? WHERE id_compras = ?', [fechaCompraFormatted, cantidad, total_costoCompra, id]);
+      res.send({ message: 'Compra actualizada correctamente' });
+    } catch (error) {
+      console.error('Error al actualizar la compra:', error);
+      res.status(500).send({ error: 'Error al actualizar la compra' });
     }
-    catch (error) {
-        console.error('Error al actualizar la compra:', error);
-        res.status(500).send({ error: 'Error al actualizar la compra' });
-    }
-}));
-router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  });
+  
+  // Eliminar una compra
+  router.delete('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        yield conexion.execute('DELETE FROM proyecto_final.compras WHERE id_compras = ?', [id]);
-        res.send({ message: 'Compra eliminada correctamente' });
+      await conexion.query('DELETE FROM compras WHERE id_compras = ?', [id]);
+      res.send({ message: 'Compra eliminada correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar la compra:', error);
+      res.status(500).send({ error: 'Error al eliminar la compra' });
     }
-    catch (error) {
-        console.error('Error al eliminar la compra:', error);
-        res.status(500).send({ error: 'Error al eliminar el producto' });
-    }
-}));
-exports.default = router;
+  });
+  
+  export default router;
