@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Compra } from '../clases/compra.model';
 import { ProductoService } from './producto.service';
 import { switchMap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class ComprasService {
-  url: string = 'http://localhost:3000/compras';
+  // url: string = 'http://localhost:3000/compras';
+  private url = `${environment.apiUrl}/compras`
 
   constructor(private httpClient: HttpClient, private productoService: ProductoService) { }
 

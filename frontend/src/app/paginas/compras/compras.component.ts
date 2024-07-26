@@ -50,7 +50,7 @@ export class ComprasComponent implements OnInit {
 
   }
   getCompras() {
-    this.httpClient.get<Compra[]>('http://localhost:3000/compras').subscribe(
+    this.httpClient.get<Compra[]>('https://control-stock-juguetes-1.onrender.com/compras').subscribe(
       (c: Compra[]) => {
         console.log(c);
         this.compras = c;
@@ -61,7 +61,7 @@ export class ComprasComponent implements OnInit {
     );
   }
   getProductos() {
-    this.httpClient.get<Producto[]>('http://localhost:3000/producto').subscribe(
+    this.httpClient.get<Producto[]>('https://control-stock-juguetes-1.onrender.com/compras').subscribe(
       (productos: Producto[]) => {
         console.log('PRODUCTOS:', productos);
         this.productos = productos;
@@ -75,7 +75,7 @@ export class ComprasComponent implements OnInit {
 
 
     // Enviar solicitud HTTP
-    this.httpClient.post<any>('http://localhost:3000/compras', this.compraReq).subscribe(
+    this.httpClient.post<any>('https://control-stock-juguetes-1.onrender.com/compras', this.compraReq).subscribe(
       (response) => {
         console.log(response);
         this.getCompras();
