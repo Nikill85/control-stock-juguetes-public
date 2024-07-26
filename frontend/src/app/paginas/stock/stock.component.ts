@@ -51,7 +51,7 @@ export class StockComponent implements OnInit {
   }
 
   getCompras() {
-    this.httpClient.get<Compra[]>('http://localhost:3000/compras').subscribe(
+    this.httpClient.get<Compra[]>('https://control-stock-juguetes-1.onrender.com/compras').subscribe(
       (compras: Compra[]) => {
         this.compras = compras;
         this.calcularStock();
@@ -63,7 +63,7 @@ export class StockComponent implements OnInit {
   }
 
   getVentas() {
-    this.httpClient.get<Venta[]>('http://localhost:3000/ventas').subscribe(
+    this.httpClient.get<Venta[]>('https://control-stock-juguetes-1.onrender.com/ventas').subscribe(
       (ventas: Venta[]) => {
         this.ventas = ventas;
         this.calcularStock();
