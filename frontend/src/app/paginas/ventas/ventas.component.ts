@@ -52,7 +52,7 @@ export class VentasComponent implements OnInit {
     //     console.error('Error al obtener las ventas:', error);
     //   }
     // );
-    this.httpClient.get<Venta[]>('http://localhost:3000/ventas').subscribe(
+    this.httpClient.get<Venta[]>('https://control-stock-juguetes-1.onrender.com/ventas').subscribe(
       (v: Venta[]) => {
         console.log(v);
         this.ventas = v;
@@ -94,7 +94,7 @@ export class VentasComponent implements OnInit {
       this.ventaRequest.total_venta = null; 
     }
   
-    this.httpClient.post<any>('http://localhost:3000/ventas', this.ventaRequest).subscribe(
+    this.httpClient.post<any>('https://control-stock-juguetes-1.onrender.com/ventas', this.ventaRequest).subscribe(
       (response) => {
         console.log(response);
         this.getVentas(); // Actualizar la lista de ventas después de crear una nueva venta
