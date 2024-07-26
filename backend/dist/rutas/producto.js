@@ -15,71 +15,66 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const promise_1 = __importDefault(require("mysql2/promise"));
 var conexion = promise_1.default.createPool({
-    host: 'sql10.freesqldatabase.com',
-    user: 'sql10722194',
-    password: 'En87q3H7Fd',
-    database: 'sql10722194',
+    host: 'localhost',
     port: 3306,
+    user: 'root',
+    password: 'yduz2urogsgovg',
+    database: 'proyecto_final'
 });
 const router = express_1.default.Router();
-// Obtener todos los productos
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-      const [rows] = await conexion.query('SELECT * FROM productos'); // Ajusta el nombre de la tabla si es necesario
-      res.send(rows);
-    } catch (error) {
-      console.error('Error al obtener los productos:', error);
-      res.status(500).send({ error: 'Error al obtener los productos' });
+        const [rows, fields] = yield conexion.execute('SELECT * FROM proyecto_final.productos');
+        res.send(rows);
     }
-  });
-  
-  // Crear un nuevo producto
-  router.post('/', async (req, res) => {
+    catch (error) {
+        console.error('Error al obtener los productos:', error);
+        res.status(500).send({ error: 'Error al obtener los productos' });
+    }
+}));
+router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { descripcion, precio, fk_tipoProducto } = req.body;
     try {
-      await conexion.query('INSERT INTO productos (descripcion, precio, fk_tipoProducto) VALUES (?, ?, ?)', [descripcion, precio, fk_tipoProducto]);
-      res.status(201).send({ message: 'Producto creado correctamente' });
-    } catch (error) {
-      console.error('Error al crear el producto:', error);
-      res.status(500).send({ error: 'Error al crear el producto' });
+        yield conexion.execute('INSERT INTO proyecto_final.productos (descripcion, precio, fk_tipoProducto) VALUES (?, ?, ?)', [descripcion, precio, fk_tipoProducto]);
+        res.status(201).send({ message: 'Producto creado correctamente' });
     }
-  });
-  
-  // Actualizar un producto
-  router.put('/:id', async (req, res) => {
+    catch (error) {
+        console.error('Error al crear el producto:', error);
+        res.status(500).send({ error: 'Error al crear el producto' });
+    }
+}));
+router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
     const { descripcion, precio } = req.body;
     try {
-      await conexion.query('UPDATE productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]);
-      res.send({ message: 'Producto actualizado correctamente' });
-    } catch (error) {
-      console.error('Error al actualizar el producto:', error);
-      res.status(500).send({ error: 'Error al actualizar el producto' });
+        yield conexion.execute('UPDATE proyecto_final.productos SET descripcion = ?, precio = ? WHERE id_producto = ?', [descripcion, precio, id]);
+        res.send({ message: 'Descripción actualizada correctamente' });
     }
-  });
-  
-  // Eliminar un producto usando el ID en el cuerpo de la solicitud
-  router.delete('/', async (req, res) => {
+    catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send({ error: 'Error al actualizar el producto' });
+    }
+}));
+router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.body.id; // Acceder al id desde el cuerpo de la solicitud
     try {
-      await conexion.query('DELETE FROM productos WHERE id_producto = ?', [id]);
-      res.send({ message: 'Producto eliminado correctamente' });
-    } catch (error) {
-      console.error('Error al eliminar el producto:', error);
-      res.status(500).send({ error: 'Error al eliminar el producto' });
+        yield conexion.execute('DELETE FROM proyecto_final.productos WHERE id_producto = ?', [id]);
+        res.send({ message: 'Producto eliminado correctamente' });
     }
-  });
-  
-  // Eliminar un producto usando el ID en los parámetros de la URL
-  router.delete('/:id', async (req, res) => {
+    catch (error) {
+        console.error('Error al eliminar el producto:', error);
+        res.status(500).send({ error: 'Error al eliminar el producto' });
+    }
+}));
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id; // Acceder al id desde los parámetros de la URL
     try {
-      await conexion.query('DELETE FROM productos WHERE id_producto = ?', [id]);
-      res.send({ message: 'Producto eliminado correctamente' });
-    } catch (error) {
-      console.error('Error al eliminar el producto:', error);
-      res.status(500).send({ error: 'Error al eliminar el producto' });
+        yield conexion.execute('DELETE FROM proyecto_final.productos WHERE id_producto = ?', [id]);
+        res.send({ message: 'Producto eliminado correctamente' });
     }
-  });
-  
-  export default router;
+    catch (error) {
+        console.error('Error al eliminar el producto', error);
+        res.status(500).send({ error: 'Error al eliminar el producto' });
+    }
+}));
+exports.default = router;
