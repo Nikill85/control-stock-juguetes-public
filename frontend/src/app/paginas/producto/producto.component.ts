@@ -125,7 +125,7 @@ export class ProductoComponent implements OnInit {
   }
   resetForm() {
     this.producto = new Producto();
- 
+    this.TipoproductoSelected=  new TipoProducto();
     
   }
 
