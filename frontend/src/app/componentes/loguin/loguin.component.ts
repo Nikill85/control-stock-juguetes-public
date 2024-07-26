@@ -26,7 +26,7 @@ export class LoguinComponent implements OnInit {
     const usuario = this.usuario.trim();
     const password = this.password.trim();
 
-    if (usuario === "admin" && password === "123") {
+    if (usuario === "superAdmin85" && password === "internet19") {
       this.login.setConectado(usuario, true);
       this.ingresar();
     } else {
