@@ -73,7 +73,7 @@ export class ProductoComponent implements OnInit {
   
 
   actualizarProducto() {
-    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto${this.producto.id_producto}`, this.producto).subscribe(data => {
+    this.httpClient.put(`https://control-stock-juguetes-1.onrender.com/producto/${this.producto.id_producto}`, this.producto).subscribe(data => {
       console.log("Producto actualizado:", data);
       this.getProductos(); 
       this.resetForm()
