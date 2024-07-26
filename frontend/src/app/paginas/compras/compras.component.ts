@@ -90,7 +90,7 @@ export class ComprasComponent implements OnInit {
   getProductoDescripcion(idProducto: number): string {
     if (this.productos && this.productos.length > 0) {
       const producto = this.productos.find(p => p.id_producto === idProducto);
-      return producto ? producto.descripcion : 'Descripción no disponible';
+      return producto ? producto.descripcion : '';
     } else {
       return 'Descripción no disponible';
     }
