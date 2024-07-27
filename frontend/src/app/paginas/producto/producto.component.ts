@@ -71,6 +71,7 @@ export class ProductoComponent implements OnInit {
   }
   
   actualizarProducto() {
+    this.esEdit = false;
     
     this.productoService.actualizarProducto(this.producto)
       .subscribe(respuesta => {
