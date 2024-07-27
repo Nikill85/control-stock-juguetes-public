@@ -78,8 +78,7 @@ export class ProductoComponent implements OnInit {
         console.log(respuesta);
         this.getProductos();
         this.resetForm();
-       
-      });
+        });
 
   }
 
@@ -113,7 +112,7 @@ export class ProductoComponent implements OnInit {
   resetForm() {
     this.producto = new Producto();
     this.TipoproductoSelected=  new TipoProducto();
-    this.esEdit = false;
+
     
   }
 
