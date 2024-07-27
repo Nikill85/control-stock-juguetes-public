@@ -71,13 +71,13 @@ export class ProductoComponent implements OnInit {
   }
   
   actualizarProducto() {
-    this.esEdit = false;
+    
     this.productoService.actualizarProducto(this.producto)
       .subscribe(respuesta => {
         console.log(respuesta);
         this.getProductos();
         this.resetForm();
-        this.esEdit = false;
+       
       });
 
   }
@@ -112,6 +112,7 @@ export class ProductoComponent implements OnInit {
   resetForm() {
     this.producto = new Producto();
     this.TipoproductoSelected=  new TipoProducto();
+    this.esEdit = false;
     
   }
 
